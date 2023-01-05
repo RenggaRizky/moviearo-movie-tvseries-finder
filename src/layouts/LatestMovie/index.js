@@ -57,11 +57,12 @@ export default function LatestMovie() {
                             link="/"
                         />
                     </div>
-                    <div className="slider flex gap-x-4 overflow-x-scroll group mb-14 scrollbar-hide">
+                    <div className="flex gap-x-4 overflow-x-scroll group mb-14 scrollbar-hide">
                         {data.map((data) => {
                             return (
                                 <MovieCard
                                     key={data.id}
+                                    id={data.id}
                                     title={data.original_title}
                                     picture={`https://image.tmdb.org/t/p/original/${data.poster_path}`}
                                     score={data.vote_average}

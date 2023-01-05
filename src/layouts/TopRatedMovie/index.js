@@ -58,6 +58,7 @@ export default function TopRatedMovie() {
                         .map((data) => {
                             return (
                                 <MovieLink
+                                    id={data.id}
                                     key={data.title}
                                     title={data.title}
                                     score={data.vote_average}

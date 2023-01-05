@@ -1,6 +1,6 @@
-import React, { useContext, useMemo, useState } from "react";
-import { TrailerContext } from "layouts/LatestTrailer";
+import React, { useMemo, useState } from "react";
 import ReactPlayer from "react-player";
+import { useTrailer } from "helpers/context/trailer";
 
 export default function TrailerModal({ children, className }) {
     const [trailer, setTrailer] = useState(null);
@@ -8,7 +8,7 @@ export default function TrailerModal({ children, className }) {
     const [playVideo, setPlayVideo] = useState(false);
     const [openModal, setOpenModal] = useState(false);
 
-    const idMovie = useContext(TrailerContext);
+    const trailerId = useTrailer();
 
     const handleGetVideo = (id) => {
         fetch(
@@ -50,7 +50,7 @@ export default function TrailerModal({ children, className }) {
 
     return (
         <div className={className}>
-            <div onClick={() => handleOpenModal(idMovie)}>{children}</div>
+            <div onClick={() => handleOpenModal(trailerId)}>{children}</div>
 
             <div
                 id="popup-modal"

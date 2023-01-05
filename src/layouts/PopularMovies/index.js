@@ -59,6 +59,7 @@ export default function PopularMovie() {
                         .map((data) => {
                             return (
                                 <MovieLink
+                                    id={data.id}
                                     key={data.title}
                                     title={data.title}
                                     score={data.vote_average}

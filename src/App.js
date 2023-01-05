@@ -1,4 +1,5 @@
 import Home from "pages/Home";
+import Movie from "pages/Movie";
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
@@ -11,7 +12,7 @@ function App() {
         <div className="App font-inter">
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/film/:id" />
+                <Route path="/film/:id" element={<Movie />} />
                 <Route path="/serialtv/:id" />
             </Routes>
         </div>

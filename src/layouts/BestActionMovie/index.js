@@ -61,6 +61,7 @@ export default function BestActionMovie() {
                             return (
                                 <MovieCard
                                     key={data.id}
+                                    id={data.id}
                                     title={data.title}
                                     picture={`https://image.tmdb.org/t/p/original/${data.poster_path}`}
                                     score={data.vote_average}

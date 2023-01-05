@@ -1,6 +1,7 @@
-import { Dropdown, Navbar } from "flowbite-react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import mobileLogo from "assets/images/logo-small.svg";
+import desktopLogo from "assets/images/logo.svg";
 
 export default function NavbarMenu() {
     const [dropdownMovie, setDropdownMovie] = useState(false);
@@ -19,15 +20,15 @@ export default function NavbarMenu() {
 
     return (
         <nav className="px-2 bg-darkblack border-gray-200 ">
-            <div className="container flex flex-wrap items-center justify-between mx-auto p-6 lg:mb-10  xl:px-6 xl:py-9">
+            <div className="container flex flex-wrap items-center justify-between mx-auto p-6">
                 <Link to="/" className="flex items-center">
                     <img
-                        src="images/logo-small.svg"
+                        src={mobileLogo}
                         className="md:hidden h-6"
                         alt="Moviearo Logo"
                     />
                     <img
-                        src="images/logo.svg"
+                        src={desktopLogo}
                         className="hidden md:inline-block h-7"
                         alt="Moviearo Logo"
                     />

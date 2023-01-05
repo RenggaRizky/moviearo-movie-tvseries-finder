@@ -4,10 +4,10 @@ const movieVideo = [];
 for (let i = 0; i <= 10; i++) {
     movieVideo.push(
         <div className="flex flex-col" key={i}>
-            <div className="aspect-video w-64 cursor-pointer bg-gray-800 animate-pulse rounded-2xl"></div>
+            <div className="w-[22.5rem] h-52 bg-gray-800 animate-pulse rounded-2xl" />
             <div className="mb-4 mt-6">
-                <div className="cursor-pointer text-white font-semibold text-lg mb-2 truncate text-ellipsis overflow-hidden w-64"></div>
-                <div className="text-base text-lightgray truncate text-ellipsis overflow-hidden w-64"></div>
+                <div className="mb-2 w-72 bg-gray-800 animate-pulse rounded-full h-4" />
+                <div className="w-24 bg-gray-800 animate-pulse rounded-full h-4" />
             </div>
         </div>
     );

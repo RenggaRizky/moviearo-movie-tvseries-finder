@@ -1,7 +1,8 @@
-import { Index } from "./index";
 import React from "react";
 import { Link } from "react-router-dom";
 import FooterLink from "components/FooterLink";
+import mobileLogo from "assets/images/logo-small.svg";
+import desktopLogo from "assets/images/logo.svg";
 
 export default function FooterMenu() {
     const footerLinkA = [
@@ -20,12 +21,12 @@ export default function FooterMenu() {
             <div className="container mx-auto mb-16 sm:grid sm:grid-cols-2 sm:gap-y-6 md:grid-cols-3 md:gap-y-10 lg:grid-cols-4 lg:max-w-5xl lg:mx-auto xl:max-w-7xl">
                 <div>
                     <img
-                        src="images/logo-small.svg"
+                        src={mobileLogo}
                         className="md:hidden h-6 mb-4 md:mb-0"
                         alt="Moviearo Logo"
                     />
                     <img
-                        src="images/logo.svg"
+                        src={desktopLogo}
                         className="hidden md:inline-block h-8 mb-6"
                         alt="Moviearo Logo"
                     />

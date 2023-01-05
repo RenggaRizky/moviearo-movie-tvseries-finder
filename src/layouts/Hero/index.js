@@ -1,12 +1,13 @@
 import React from "react";
+import heroImg from "assets/images/hero.svg";
 
 export default function Hero() {
     return (
-        <section className="px-6 xl:mb-32">
+        <section className="px-6 lg:mt-10 xl:mb-32">
             <div className="md:grid md:grid-cols-2 md:justify-around md:items-center">
                 <div className="flex justify-center md:order-2 md:justify-end">
                     <img
-                        src="images/hero.svg"
+                        src={heroImg}
                         alt="Hero"
                         className="w-3/4 sm:w-3/5 md:w-4/5"
                     />

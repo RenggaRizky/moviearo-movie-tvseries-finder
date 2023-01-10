@@ -8,16 +8,16 @@ import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
 import blankProfile from "assets/images/blank-profile.png";
 import NoDataCard from "components/NoDataCard";
 
-export default function MovieCast() {
+export default function TvCast() {
     const [cast, setCast] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const location = useLocation();
-    const movieId = location.state?.id;
+    const seriesId = location.state?.id;
 
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
+            `https://api.themoviedb.org/3/tv/${seriesId}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
@@ -39,7 +39,7 @@ export default function MovieCast() {
             .finally(() => {
                 setLoading(false);
             });
-    }, [movieId]);
+    }, [seriesId]);
 
     const data = useMemo(() => cast, [cast]);
 
@@ -76,7 +76,7 @@ export default function MovieCast() {
                 <section className="px-7 mb-16">
                     <TitleSection viewAll={false} title="Pemeran" />
                     <div className="mt-6">
-                        <NoDataCard message="Tidak ada pemeran atau pemeran belum ditambahkan" />
+                        <NoDataCard message="tidak ada pemeran atau pemeran belum ditambahkan" />
                     </div>
                 </section>
             )}

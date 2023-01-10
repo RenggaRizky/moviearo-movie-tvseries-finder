@@ -12,18 +12,20 @@ export default function Movie() {
     return (
         <Wrapper>
             <MoviePoster />
-            <section className="lg:flex lg:gap-x-12">
-                <section className="lg:basis-[80%]">
-                    <MovieDetails />
+            <section className="lg:max-w-5xl lg:mx-auto  xl:max-w-7xl">
+                <section className="lg:flex lg:gap-x-12">
+                    <section className="lg:basis-[80%]">
+                        <MovieDetails />
+                    </section>
+                    {/* <aside className="hidden lg:inline-block lg:basis-[20%]">
+            <MovieTabLists />
+        </aside> */}
                 </section>
-                <aside className="hidden lg:inline-block lg:basis-[20%]">
-                    <MovieTabLists />
-                </aside>
+                <MovieCast />
+                <MovieVideoList />
+                <MovieReview />
+                <SimilarMovie />
             </section>
-            <MovieCast />
-            <MovieVideoList />
-            <MovieReview />
-            <SimilarMovie />
         </Wrapper>
     );
 }

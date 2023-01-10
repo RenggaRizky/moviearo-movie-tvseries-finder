@@ -1,17 +1,21 @@
+import React, { useEffect, useMemo, useState } from "react";
 import MovieCard from "components/MovieCard";
 import MovieCardSkeleton from "components/MovieCardSkeleton";
 import TitleSection from "components/TitleSection";
 import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
 import HorizontalDragScroll from "helpers/HorizontalDragScroll";
-import React, { useEffect, useMemo, useState } from "react";
+import { useLocation } from "react-router-dom";
 
-export default function LatestTvSeries() {
-    const [series, setSeries] = useState(null);
+export default function SimilarTv() {
+    const [movies, setMovies] = useState(null);
     const [loading, setLoading] = useState(true);
+
+    const location = useLocation();
+    const seriesId = location.state?.id;
 
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/tv/airing_today?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=1`,
+            `https://api.themoviedb.org/3/tv/${seriesId}/similar?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=1`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
@@ -19,23 +23,23 @@ export default function LatestTvSeries() {
         )
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error(`HTT{ error status ${response.status}`);
+                    throw new Error(`HTTP error status ${response.status}`);
                 }
                 return response.json();
             })
             .then((data) => {
-                setSeries(data.results);
+                setMovies(data.results);
             })
             .catch((error) => {
-                setSeries(null);
+                setMovies(null);
                 console.log(error.message);
             })
             .finally(() => {
                 setLoading(false);
             });
-    }, []);
+    }, [seriesId]);
 
-    const data = useMemo(() => series, [series]);
+    const data = useMemo(() => movies, [movies]);
 
     return (
         <HorizontalDragScroll>
@@ -52,21 +56,20 @@ export default function LatestTvSeries() {
                 <section className="px-6">
                     <div className="mb-12">
                         <TitleSection
-                            title="Serial TV hari ini"
-                            viewAll={true}
-                            link="/"
+                            title="Serial tv serupa"
+                            viewAll={false}
                         />
                     </div>
                     <div className="flex gap-x-4 overflow-x-scroll group mb-14 scrollbar-hide">
                         {data.map((data) => {
                             return (
                                 <MovieCard
-                                    id={data.id}
                                     key={data.id}
-                                    title={data.original_name}
+                                    id={data.id}
+                                    title={data.name}
                                     picture={`https://image.tmdb.org/t/p/original/${data.poster_path}`}
                                     score={data.vote_average}
-                                    date={data.first_air_date}
+                                    date={data.release_date}
                                     link={`/serialtv/${data.id}`}
                                 />
                             );

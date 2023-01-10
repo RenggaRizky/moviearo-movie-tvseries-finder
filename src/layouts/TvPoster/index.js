@@ -2,18 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/id";
-import { runtime } from "helpers/Runtime";
 
-export default function MoviePoster() {
+export default function TvPoster() {
     const [details, setDetails] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const location = useLocation();
-    const movieId = location.state?.id;
+    const seriesId = location.state?.id;
 
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
+            `https://api.themoviedb.org/3/tv/${seriesId}?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
@@ -33,7 +32,7 @@ export default function MoviePoster() {
                 console.log(error.message);
             })
             .finally(() => setLoading(false));
-    }, [movieId]);
+    }, [seriesId]);
 
     return (
         <>
@@ -41,9 +40,13 @@ export default function MoviePoster() {
                 <Skeleton />
             ) : (
                 <section
-                    className="bg-fixed bg-cover bg-center md:py-16 md:px-4 lg:justify-between lg:py-24 lg:px-16 lg:gap-x-2"
+                    className="bg-fixed bg-cover bg-center md:py-16 md:px-4 lg:justify-between lg:px-16 lg:py-24 lg:gap-x-2 "
                     style={{
-                        backgroundImage: `linear-gradient(rgba(22, 22, 22, 0.7), rgba(22, 22, 22, 0.9)), url(https://image.tmdb.org/t/p/original/${details.backdrop_path})`,
+                        backgroundImage: `linear-gradient(rgba(22, 22, 22, 0.7), rgba(22, 22, 22, 0.9)), url(https://image.tmdb.org/t/p/original/${
+                            details.backdrop_path
+                                ? details.backdrop_path
+                                : details.poster_path
+                        })`,
                     }}
                 >
                     <div className="md:flex md:justify-evenly lg:max-w-5xl lg:mx-auto  xl:max-w-7xl">
@@ -57,13 +60,13 @@ export default function MoviePoster() {
                         </div>
                         <div className="bg-lightblack px-8 py-14 text-center mt-9 mb-16 md:m-0 md:flex md:justify-center md:flex-col lg:basis-full">
                             <h3 className="text-lg font-medium uppercase text-white mb-4 md:text-xl">
-                                {details.original_title}
+                                {details.original_name}
                             </h3>
 
                             <div className="text-xs text-lightgray mb-6 space-x-2 md:text-sm">
                                 <span>
-                                    {details.release_date
-                                        ? moment(details.release_date).format(
+                                    {details.first_air_date
+                                        ? moment(details.first_air_date).format(
                                               "l"
                                           )
                                         : "-"}
@@ -71,9 +74,8 @@ export default function MoviePoster() {
                                 <span>|</span>
                                 <span className="uppercase">
                                     (
-                                    {details.production_countries[0].iso_3166_1
-                                        ? details.production_countries[0]
-                                              .iso_3166_1
+                                    {details.origin_country
+                                        ? details.origin_country
                                         : "-"}
                                     )
                                 </span>
@@ -89,9 +91,8 @@ export default function MoviePoster() {
                                 </span>
                                 <span>|</span>
                                 <span>
-                                    {details.runtime
-                                        ? runtime(details.runtime)
-                                        : "-"}
+                                    {details.number_of_seasons} Musim (
+                                    {details.number_of_episodes} episode){" "}
                                 </span>
                             </div>
 

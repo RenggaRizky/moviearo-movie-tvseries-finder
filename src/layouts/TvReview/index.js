@@ -6,16 +6,16 @@ import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
 import React, { useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-export default function MovieReview() {
+export default function TvReview() {
     const [reviews, setReviews] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const location = useLocation();
-    const movieId = location.state?.id;
+    const seriesId = location.state?.id;
 
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/movie/${movieId}/reviews?api_key=${process.env.REACT_APP_API_KEY}`,
+            `https://api.themoviedb.org/3/tv/${seriesId}/reviews?api_key=${process.env.REACT_APP_API_KEY}`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
@@ -37,7 +37,7 @@ export default function MovieReview() {
             .finally(() => {
                 setLoading(false);
             });
-    }, [movieId]);
+    }, [seriesId]);
 
     const data = useMemo(() => reviews, [reviews]);
 

@@ -1,6 +1,6 @@
 import TitleSection from "components/TitleSection";
 import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
-import currency from "currency.js";
+import { runtime } from "helpers/Runtime";
 import React, { useCallback, useEffect, useReducer } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -61,16 +61,16 @@ for (let i = 0; i <= 4; i++) {
     );
 }
 
-export default function MovieDetails() {
+export default function TvDetails() {
     const [state, dispatch] = useReducer(detailsReducer, initialStateDetails);
 
     const location = useLocation();
-    const movieId = location.state?.id;
+    const seriesId = location.state?.id;
 
-    const getMovieDetails = useCallback(
+    const getSeriesDetails = useCallback(
         (id) => {
             fetch(
-                `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
+                `https://api.themoviedb.org/3/tv/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
                 {
                     mode: "cors",
                     headers: { "Content-Type": "application/json" },
@@ -97,10 +97,10 @@ export default function MovieDetails() {
         [state.details]
     );
 
-    const getMovieEngDesc = useCallback(
+    const getSeriesEngDesc = useCallback(
         (id) => {
             fetch(
-                `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}`,
+                `https://api.themoviedb.org/3/tv/${id}?api_key=${process.env.REACT_APP_API_KEY}`,
                 {
                     mode: "cors",
                     headers: { "Content-Type": "application/json" },
@@ -119,18 +119,18 @@ export default function MovieDetails() {
                     });
                 })
                 .catch((error) => {
-                    dispatch({ type: "DETAILS", payload: null });
+                    dispatch({ type: "ENG_DESC", payload: null });
                     console.log(error.message);
                 })
                 .finally(() => dispatch({ type: "LOADING_ENG_DESC" }));
         },
-        [state.details]
+        [state.englishDesc]
     );
 
-    const getMovieCredits = useCallback(
+    const getSeriesCredits = useCallback(
         (id) => {
             fetch(
-                `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
+                `https://api.themoviedb.org/3/tv/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
                 {
                     mode: "cors",
                     headers: { "Content-Type": "application/json" },
@@ -179,10 +179,10 @@ export default function MovieDetails() {
     );
 
     useEffect(() => {
-        getMovieDetails(movieId);
-        getMovieCredits(movieId);
-        getMovieEngDesc(movieId);
-    }, [movieId]);
+        getSeriesDetails(seriesId);
+        getSeriesCredits(seriesId);
+        getSeriesEngDesc(seriesId);
+    }, [seriesId]);
 
     return (
         <section className="px-7 mb-16 md:mt-16 lg:pl-7">
@@ -190,7 +190,7 @@ export default function MovieDetails() {
             !state.loadingCrews &&
             !state.loadingEngDesc ? (
                 <>
-                    <TitleSection viewAll={false} title="Informasi film" />
+                    <TitleSection viewAll={false} title="Informasi serial tv" />
                     {state.details.overview.length !== 0 ? (
                         <p className="text-lightgray text-base leading-7 mt-6">
                             {state.details.overview}
@@ -224,7 +224,7 @@ export default function MovieDetails() {
                                 </td>
                                 <td className="py-2 align-top">
                                     <p className="text-sm text-lightgray">
-                                        {state.details.original_title}
+                                        {state.details.original_name}
                                     </p>
                                 </td>
                             </tr>
@@ -248,7 +248,7 @@ export default function MovieDetails() {
                             <tr>
                                 <td className="py-2 align-top">
                                     <h4 className="font-medium text-white text-base">
-                                        Pemasukan
+                                        Saluran Televisi
                                     </h4>
                                 </td>
                                 <td className="py-2 align-top pr-4">
@@ -258,16 +258,16 @@ export default function MovieDetails() {
                                 </td>
                                 <td className="py-2 align-top">
                                     <p className="text-sm text-lightgray">
-                                        {currency(
-                                            state.details.revenue
-                                        ).format()}
+                                        {state.details.networks.length !== 0
+                                            ? state.details.networks[0].name
+                                            : "-"}
                                     </p>
                                 </td>
                             </tr>
                             <tr>
                                 <td className="py-2 align-top">
                                     <h4 className="font-medium text-white text-base">
-                                        Anggaran
+                                        Perusahaan Produksi
                                     </h4>
                                 </td>
                                 <td className="py-2 align-top pr-4">
@@ -277,9 +277,14 @@ export default function MovieDetails() {
                                 </td>
                                 <td className="py-2 align-top">
                                     <p className="text-sm text-lightgray">
-                                        {currency(
-                                            state.details.budget
-                                        ).format()}
+                                        {state.details.production_companies
+                                            .length !== 0
+                                            ? state.details.production_companies.map(
+                                                  (company, index) =>
+                                                      (index ? ", " : " ") +
+                                                      company.name
+                                              )
+                                            : "-"}
                                     </p>
                                 </td>
                             </tr>

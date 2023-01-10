@@ -1,6 +1,6 @@
 import MovieLink from "components/MovieLink";
 import React from "react";
-export function TabBody({ tabValue, value, data }) {
+export function TabBody({ tabValue, value, data, type }) {
     return (
         <div
             className={[
@@ -17,9 +17,13 @@ export function TabBody({ tabValue, value, data }) {
                             rank={true}
                             rankNum={index + 1}
                             key={y.id}
-                            title={y.title}
+                            title={type === "movie" ? y.title : y.name}
                             score={y.vote_average}
-                            link={`/film/${y.id}`}
+                            link={
+                                type === "movie"
+                                    ? `/film/${y.id}`
+                                    : `/serialtv/${y.id}`
+                            }
                         />
                     );
                 })}

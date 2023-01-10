@@ -1,7 +1,7 @@
 import Tab from "components/Tab";
 import React, { useState } from "react";
 import { TabBody } from "components/TabBody";
-export default function TabLists({ latest, popular, toprating }) {
+export default function TabLists({ latest, popular, toprating, type }) {
     const [tabValue, setTabValue] = useState("terbaru");
 
     return (
@@ -36,9 +36,24 @@ export default function TabLists({ latest, popular, toprating }) {
                 </li>
             </ul>
 
-            <TabBody tabValue={tabValue} value="terbaru" data={latest} />
-            <TabBody tabValue={tabValue} value="popular" data={popular} />
-            <TabBody tabValue={tabValue} value="topRating" data={toprating} />
+            <TabBody
+                tabValue={tabValue}
+                value="terbaru"
+                data={latest}
+                type={type}
+            />
+            <TabBody
+                tabValue={tabValue}
+                value="popular"
+                data={popular}
+                type={type}
+            />
+            <TabBody
+                tabValue={tabValue}
+                value="topRating"
+                data={toprating}
+                type={type}
+            />
         </div>
     );
 }

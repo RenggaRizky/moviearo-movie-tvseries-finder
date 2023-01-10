@@ -1,7 +1,7 @@
 import TabLists from "components/TabLists";
 import React, { useEffect, useState } from "react";
 
-export default function MovieTabLists() {
+export default function TvTabLists() {
     const [latest, setLatest] = useState(null);
     const [loadLatest, setLoadLatest] = useState(true);
     const [popular, setPopular] = useState(null);
@@ -9,9 +9,9 @@ export default function MovieTabLists() {
     const [toprating, setToprating] = useState(null);
     const [loadToprating, setLoadToprating] = useState(true);
 
-    const getLatestMovie = () => {
+    const getLatestSeries = () => {
         fetch(
-            `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=1`,
+            `https://api.themoviedb.org/3/tv/airing_today?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=1`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
@@ -35,9 +35,9 @@ export default function MovieTabLists() {
             });
     };
 
-    const getPopularMovie = () => {
+    const getPopularSeries = () => {
         fetch(
-            `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=1`,
+            `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=1`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
@@ -61,9 +61,9 @@ export default function MovieTabLists() {
             });
     };
 
-    const getTopRatingMovie = () => {
+    const getTopRatingSeries = () => {
         fetch(
-            `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=1`,
+            `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=1`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
@@ -88,9 +88,9 @@ export default function MovieTabLists() {
     };
 
     useEffect(() => {
-        getLatestMovie();
-        getPopularMovie();
-        getTopRatingMovie();
+        getLatestSeries();
+        getPopularSeries();
+        getTopRatingSeries();
     });
 
     return (
@@ -100,7 +100,7 @@ export default function MovieTabLists() {
                     latest={latest}
                     popular={popular}
                     toprating={toprating}
-                    type="movie"
+                    type="tvseries"
                 />
             ) : (
                 <div className="md:mt-16 bg-gray-800 animate-pulse rounded-2xl h-80 w-80" />

@@ -38,7 +38,7 @@ export default function MovieCard({ id, title, picture, score, date, link }) {
                 </div>
             </Link>
             <div className="mb-4 lg:mb-6">
-                <Link to={link} className="">
+                <Link to={link} state={{ id }}>
                     <h3 className="mb-2 cursor-pointer text-white font-semibold text-sm  truncate overflow-hidden w-36 text-ellipsis lg:w-44 lg:text-base">
                         {title}
                     </h3>

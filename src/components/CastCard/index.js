@@ -29,7 +29,7 @@ export default function CastCard({ name, profile, character }) {
                 ></div>
             </div>
             <div className="mb-4 lg:mb-6">
-                <h3 className="mb-2 cursor-pointer text-white font-semibold text-sm  truncate overflow-hidden w-36 text-ellipsis lg:w-44 lg:text-base">
+                <h3 className="mb-2 text-white font-semibold text-sm  truncate overflow-hidden w-36 text-ellipsis lg:w-44 lg:text-base">
                     {name}
                 </h3>
                 <p className="text-lightgray text-xs lg:text-sm">{character}</p>

@@ -16,20 +16,22 @@ import React from "react";
 export default function Home() {
     return (
         <Wrapper>
-            <Hero />
-            <LatestMovie />
-            <LatestTvSeries />
-            <div className="bg-lightblack gap-y-6 md:bg-darkblack md:grid md:grid-cols-2 md:gap-x-4 xl:gap-x-8 xl:gap-y-8">
-                <PopularMovie />
-                <PopularTvSeries />
-                <TopRatedMovie />
-                <TopRatedTvSeries />
-            </div>
-            <LatestTrailer />
-            <BestHorrorMovie />
-            <BestScifiMovie />
-            <BestActionMovie />
-            <BestComedyMovie />
+            <section className="lg:max-w-5xl lg:mx-auto  xl:max-w-7xl">
+                <Hero />
+                <LatestMovie />
+                <LatestTvSeries />
+                <div className="bg-lightblack gap-y-6 md:bg-darkblack md:grid md:grid-cols-2 md:gap-x-4 xl:gap-x-8 xl:gap-y-8">
+                    <PopularMovie />
+                    <PopularTvSeries />
+                    <TopRatedMovie />
+                    <TopRatedTvSeries />
+                </div>
+                <LatestTrailer />
+                <BestHorrorMovie />
+                <BestScifiMovie />
+                <BestActionMovie />
+                <BestComedyMovie />
+            </section>
         </Wrapper>
     );
 }

@@ -55,11 +55,7 @@ export default function SimilarMovie() {
             ) : (
                 <section className="px-6">
                     <div className="mb-12">
-                        <TitleSection
-                            title="Film serupa"
-                            viewAll={true}
-                            link="/"
-                        />
+                        <TitleSection title="Film serupa" viewAll={false} />
                     </div>
                     <div className="flex gap-x-4 overflow-x-scroll group mb-14 scrollbar-hide">
                         {data.map((data) => {

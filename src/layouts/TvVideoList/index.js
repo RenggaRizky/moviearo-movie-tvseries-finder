@@ -8,16 +8,16 @@ import { useLocation } from "react-router-dom";
 import MovieVideoSkeleton from "components/MovieVideoSkeleton";
 import NoDataCard from "components/NoDataCard";
 
-export default function MovieVideoList() {
+export default function TvVideoList() {
     const [trailer, setTrailer] = useState(null);
     const [loading, setLoading] = useState(true);
 
     const location = useLocation();
-    const movieId = location.state?.id;
+    const seriesId = location.state?.id;
 
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${process.env.REACT_APP_API_KEY}`,
+            `https://api.themoviedb.org/3/tv/${seriesId}/videos?api_key=${process.env.REACT_APP_API_KEY}`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
@@ -43,7 +43,7 @@ export default function MovieVideoList() {
             .finally(() => {
                 setLoading(false);
             });
-    }, [movieId]);
+    }, [seriesId]);
 
     const data = useMemo(() => trailer, [trailer]);
 

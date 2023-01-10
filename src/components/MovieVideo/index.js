@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import moment from "moment";
 import "moment/locale/id";
-import ReactPlayer from "react-player";
 
 export default function MovieVideo({ id, name, date }) {
     const [playVideo, setPlayVideo] = useState(false);
@@ -9,14 +8,14 @@ export default function MovieVideo({ id, name, date }) {
     return (
         <div className="flex flex-col">
             <div className="w-[22.5rem] h-52">
-                <ReactPlayer
-                    url={`https://www.youtube.com/watch?v=${id}`}
+                <iframe
                     width="100%"
                     height="100%"
-                    controls={true}
-                    playing={playVideo}
-                    onPlay={() => setPlayVideo(true)}
-                    onPause={() => setPlayVideo(false)}
+                    src={`https://www.youtube.com/embed/${id}`}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen={true}
+                    title="Embedded youtube"
                 />
             </div>
             <div className="mb-4 mt-6">

@@ -8,9 +8,7 @@ export default function Wrapper({ children }) {
             <header className="lg:max-w-5xl lg:mx-auto  xl:max-w-7xl">
                 <NavbarMenu />
             </header>
-            <main className="lg:max-w-5xl lg:mx-auto  xl:max-w-7xl">
-                {children}
-            </main>
+            <main>{children}</main>
             <footer>
                 <FooterMenu />
             </footer>

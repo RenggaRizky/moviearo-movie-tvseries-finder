@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import mobileLogo from "assets/images/logo-small.svg";
 import desktopLogo from "assets/images/logo.svg";
 
@@ -7,6 +7,10 @@ export default function NavbarMenu() {
     const [dropdownMovie, setDropdownMovie] = useState(false);
     const [dropdownSeries, setDropdownSeries] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
+
+    const location = useLocation();
+    const path = location.pathname;
+    const rootPath = path.split("/")[1];
 
     const handleDropdownMovie = () => {
         setDropdownMovie(!dropdownMovie);
@@ -17,6 +21,21 @@ export default function NavbarMenu() {
         setDropdownSeries(!dropdownSeries);
         setDropdownMovie(false);
     };
+
+    const activeMenu =
+        "block px-4 py-2 text-primary hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent";
+    const deactiveMenu =
+        "block px-4 py-2 hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent";
+
+    const activeHomeMenu =
+        "block py-2 pl-3 pr-4 text-primary hover:bg-darkblack md:hover:bg-transparent md:hover:text-primary md:p-0";
+    const deactiveHomeMenu =
+        "block py-2 pl-3 pr-4 text-white hover:bg-darkblack md:hover:bg-transparent md:hover:text-primary md:p-0";
+
+    const activeMainMenu =
+        "flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-primary hover:bg-darkblack md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0 md:w-auto";
+    const deactiveMainMenu =
+        "flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-white hover:bg-darkblack md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0 md:w-auto";
 
     return (
         <nav className="px-2 bg-darkblack border-gray-200 ">
@@ -63,24 +82,28 @@ export default function NavbarMenu() {
                     id="navbar-dropdown"
                 >
                     <ul className="flex flex-col p-4 mt-4 border border-lightblack rounded-lg bg-lightblack md:bg-transparent md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0">
+                        {/* HOME */}
                         <li>
                             <NavLink
                                 to="/"
-                                className={(isActive) =>
-                                    isActive
-                                        ? "block py-2 pl-3 pr-4 text-primary hover:bg-darkblack md:hover:bg-transparent md:hover:text-primary md:p-0"
-                                        : "block py-2 pl-3 pr-4 text-white hover:bg-darkblack md:hover:bg-transparent md:hover:text-primary md:p-0"
+                                className={({ isActive }) =>
+                                    isActive ? activeHomeMenu : deactiveHomeMenu
                                 }
-                                aria-current="page"
                             >
                                 Home
                             </NavLink>
                         </li>
+
+                        {/* FILM */}
                         <li className="relative">
                             <button
                                 id="dropdownNavbarLink"
                                 data-dropdown-toggle="dropdownNavbar"
-                                className="flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-white hover:bg-darkblack md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0 md:w-auto"
+                                className={
+                                    rootPath === "film"
+                                        ? activeMainMenu
+                                        : deactiveMainMenu
+                                }
                                 onClick={handleDropdownMovie}
                             >
                                 Film
@@ -101,61 +124,69 @@ export default function NavbarMenu() {
                                     ></path>
                                 </svg>
                             </button>
+
                             {/* <!-- Dropdown menu --> */}
                             <div
                                 id="dropdownNavbar"
                                 className={[
                                     dropdownMovie ? "" : "hidden",
-                                    "md:absolute md:top-10 md:right-0 md:z-10 font-normal md:bg-lightblack divide-y divide-divider md:rounded md:shadow md:w-44",
+                                    "md:absolute md:top-10 md:right-0 md:z-10 font-normal md:bg-lightblack divide-y divide-divider md:rounded md:shadow md:w-44 pb-4 md:py-2 shadow-md",
                                 ].join(" ")}
                             >
                                 <ul
                                     className="py-1 text-sm text-white "
                                     aria-labelledby="dropdownLargeButton"
                                 >
+                                    {/* FILM POPULER */}
                                     <li>
                                         <NavLink
                                             to="/film/populer"
-                                            className={(isActive) =>
+                                            className={({ isActive }) =>
                                                 isActive
-                                                    ? "block px-4 py-2 text-primary hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent"
-                                                    : "block px-4 py-2 hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent"
+                                                    ? activeMenu
+                                                    : deactiveMenu
                                             }
                                         >
                                             Populer
                                         </NavLink>
                                     </li>
+
+                                    {/* FILM SEDANG DIPUTAR */}
                                     <li>
                                         <NavLink
                                             to="/film/sedang-diputar"
-                                            className={(isActive) =>
+                                            className={({ isActive }) =>
                                                 isActive
-                                                    ? "block px-4 py-2 text-primary hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent"
-                                                    : "block px-4 py-2 hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent"
+                                                    ? activeMenu
+                                                    : deactiveMenu
                                             }
                                         >
                                             Sedang Diputar
                                         </NavLink>
                                     </li>
+
+                                    {/* FILM YANG AKAN DATANG */}
                                     <li>
                                         <NavLink
                                             to="/film/yang-akan-datang"
-                                            className={(isActive) =>
+                                            className={({ isActive }) =>
                                                 isActive
-                                                    ? "block px-4 py-2 text-primary hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent"
-                                                    : "block px-4 py-2 hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent"
+                                                    ? activeMenu
+                                                    : deactiveMenu
                                             }
                                         >
                                             Yang Akan Datang
                                         </NavLink>
                                     </li>
+
+                                    {/* FILM TOP RATING */}
                                     <li>
                                         <NavLink
                                             to="/film/top-rating"
-                                            className={(isActive) =>
+                                            className={({ isActive }) =>
                                                 isActive
-                                                    ? "block px-4 py-2 text-primary hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent"
-                                                    : "block px-4 py-2 hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent"
+                                                    ? activeMenu
+                                                    : deactiveMenu
                                             }
                                         >
                                             Top Rating
@@ -164,11 +195,17 @@ export default function NavbarMenu() {
                                 </ul>
                             </div>
                         </li>
+
+                        {/* SERIAL TV */}
                         <li className="relative ">
                             <button
                                 id="dropdownNavbarLink"
                                 data-dropdown-toggle="dropdownNavbar"
-                                className="flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-white rounded hover:bg-darkblack md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0 md:w-auto"
+                                className={
+                                    rootPath === "serialtv"
+                                        ? activeMainMenu
+                                        : deactiveMainMenu
+                                }
                                 onClick={handleDropdownSeries}
                             >
                                 Serial TV
@@ -189,49 +226,55 @@ export default function NavbarMenu() {
                                     ></path>
                                 </svg>
                             </button>
+
                             {/* <!-- Dropdown menu --> */}
                             <div
                                 id="dropdownNavbar"
                                 className={[
                                     dropdownSeries ? "" : "hidden",
-                                    "md:absolute md:top-10 md:right-0 md:z-10 font-normal md:bg-lightblack divide-y divide-divider md:rounded md:shadow w-44",
+                                    "md:absolute md:top-10 md:right-0 md:z-10 font-normal md:bg-lightblack divide-y divide-divider md:rounded md:shadow md:w-44 pb-4 md:py-2 shadow-md",
                                 ].join(" ")}
                             >
                                 <ul
                                     className="py-1 text-sm text-white"
                                     aria-labelledby="dropdownLargeButton"
                                 >
+                                    {/* SERIAL POPULER */}
                                     <li>
                                         <NavLink
                                             to="/serialtv/populer"
-                                            className={(isActive) =>
+                                            className={({ isActive }) =>
                                                 isActive
-                                                    ? "block px-4 py-2 text-primary hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent"
-                                                    : "block px-4 py-2 hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent"
+                                                    ? activeMenu
+                                                    : deactiveMenu
                                             }
                                         >
                                             Populer
                                         </NavLink>
                                     </li>
+
+                                    {/* SERIAL SEDANG DIPUTAR */}
                                     <li>
                                         <NavLink
                                             to="/serialtv/sedang-diputar"
-                                            className={(isActive) =>
+                                            className={({ isActive }) =>
                                                 isActive
-                                                    ? "block px-4 py-2 text-primary hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent"
-                                                    : "block px-4 py-2 hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent"
+                                                    ? activeMenu
+                                                    : deactiveMenu
                                             }
                                         >
                                             Sedang Diputar
                                         </NavLink>
                                     </li>
+
+                                    {/* SERIAL TOP RATING */}
                                     <li>
                                         <NavLink
                                             to="/serialtv/top-rating"
-                                            className={(isActive) =>
+                                            className={({ isActive }) =>
                                                 isActive
-                                                    ? "block px-4 py-2 text-primary hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent"
-                                                    : "block px-4 py-2 hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent"
+                                                    ? activeMenu
+                                                    : deactiveMenu
                                             }
                                         >
                                             Top Rating

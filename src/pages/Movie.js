@@ -17,9 +17,6 @@ export default function Movie() {
                     <section className="lg:basis-[80%]">
                         <MovieDetails />
                     </section>
-                    {/* <aside className="hidden lg:inline-block lg:basis-[20%]">
-            <MovieTabLists />
-        </aside> */}
                 </section>
                 <MovieCast />
                 <MovieVideoList />

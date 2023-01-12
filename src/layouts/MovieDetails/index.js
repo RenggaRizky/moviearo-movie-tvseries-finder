@@ -381,8 +381,8 @@ export default function MovieDetails() {
             ) : (
                 <section className="mb-16 md:mt-16">
                     <TitleSectionSkeleton />
-                    <div className="bg-gray-800 animate-pulse rounded-full mt-6 h-5 w-[40rem]" />
-                    <div className="bg-gray-800 animate-pulse rounded-full mt-3 h-5 w-[30rem]" />
+                    <div className="bg-gray-800 animate-pulse rounded-full mt-6 h-5 w-80 sm:w-96 md:w-[40rem]" />
+                    <div className="bg-gray-800 animate-pulse rounded-full mt-3 h-5  w-64 sm:w-72 md:w-[30rem]" />
                     <table className="w-auto mt-4">
                         <tbody>{skeleton}</tbody>
                     </table>

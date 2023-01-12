@@ -40,7 +40,7 @@ export default function TvPoster() {
                 <Skeleton />
             ) : (
                 <section
-                    className="bg-fixed bg-cover bg-center md:py-16 md:px-4 lg:justify-between lg:px-16 lg:py-24 lg:gap-x-2 "
+                    className="bg-fixed bg-cover bg-center md:py-16 md:px-4 lg:justify-between lg:py-24 lg:px-16 lg:gap-x-2"
                     style={{
                         backgroundImage: `linear-gradient(rgba(22, 22, 22, 0.7), rgba(22, 22, 22, 0.9)), url(https://image.tmdb.org/t/p/original/${
                             details.backdrop_path

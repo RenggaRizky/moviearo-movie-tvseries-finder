@@ -17,9 +17,6 @@ export default function Series() {
                     <section className="lg:basis-[80%]">
                         <TvDetails />
                     </section>
-                    {/* <aside className="hidden lg:inline-block lg:basis-[20%]">
-                    <TvTabLists />
-                </aside> */}
                 </section>
                 <TvCast />
                 <TvVideoList />

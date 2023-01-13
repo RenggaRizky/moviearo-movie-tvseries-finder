@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styles from "./style.module.css";
 
 export default function Filter() {
     const [toggle, setToggle] = useState(false);
@@ -42,6 +43,9 @@ export default function Filter() {
                         <hr className="border-divider mb-8" />
 
                         <SortDropdown />
+                        <LanguageDropdown />
+                        <ScoreRange />
+                        <GenreCheckbox />
                     </div>
                 </div>
             </div>
@@ -52,9 +56,11 @@ export default function Filter() {
 function SortDropdown() {
     return (
         <>
-            <p className="text-lightgray text-sm mb-4">Urut Berdasarkan</p>
+            <label for="sortDropdown" className="text-lightgray text-sm mb-4">
+                Urut Berdasarkan
+            </label>
             <select
-                id="default"
+                id="sortDropdown"
                 class="bg-darkblack border border-divider text-white mb-6 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 "
             >
                 <option selected>Choose a country</option>
@@ -63,6 +69,110 @@ function SortDropdown() {
                 <option value="FR">France</option>
                 <option value="DE">Germany</option>
             </select>
+        </>
+    );
+}
+
+function LanguageDropdown() {
+    return (
+        <>
+            <label
+                for="languageDropdown"
+                className="text-lightgray text-sm mb-4"
+            >
+                Pilih Bahasa
+            </label>
+            <select
+                id="languageDropdown"
+                class="bg-darkblack border border-divider text-white mb-6 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 "
+            >
+                <option selected>Tidak dipilih</option>
+                <option value="US">United States</option>
+                <option value="CA">Canada</option>
+                <option value="FR">France</option>
+                <option value="DE">Germany</option>
+            </select>
+        </>
+    );
+}
+
+function ScoreRange() {
+    return (
+        <>
+            <label for="ScoreRange" className="text-lightgray text-sm mb-4">
+                Nilai
+            </label>
+            <input
+                className={styles}
+                id="ScoreRange"
+                type="range"
+                defaultValue={0}
+                min="0"
+                max="10"
+                // step="3"
+            />
+        </>
+    );
+}
+
+function GenreCheckbox() {
+    return (
+        <>
+            <label
+                for="languageDropdown"
+                className="text-lightgray text-sm mb-4"
+            >
+                Pilih Genre
+            </label>
+            <div className="flex">
+                <div class="flex items-center pl-4 border border-divider rounded-full bg-divider ">
+                    <input
+                        id="bordered-checkbox-1"
+                        type="checkbox"
+                        value=""
+                        name="bordered-checkbox"
+                        class="w-4 h-4 text-primary bg-gray-100 border-divider rounded-full focus:ring-primary focus:ring-2"
+                    />
+                    <label
+                        for="bordered-checkbox-1"
+                        class="w-full py-2.5 mx-4 text-sm font-medium text-white"
+                    >
+                        Aksi
+                    </label>
+                </div>
+
+                <div class="flex items-center pl-4 border border-divider rounded-full bg-divider ">
+                    <input
+                        id="bordered-checkbox-1"
+                        type="checkbox"
+                        value=""
+                        name="bordered-checkbox"
+                        class="w-4 h-4 text-primary bg-gray-100 border-divider rounded-full focus:ring-primary focus:ring-2"
+                    />
+                    <label
+                        for="bordered-checkbox-1"
+                        class="w-full py-2.5 mx-4 text-sm font-medium text-white"
+                    >
+                        Animasi
+                    </label>
+                </div>
+
+                <div class="flex items-center pl-4 border border-divider rounded-full bg-divider ">
+                    <input
+                        id="bordered-checkbox-1"
+                        type="checkbox"
+                        value=""
+                        name="bordered-checkbox"
+                        class="w-4 h-4 text-primary bg-gray-100 border-divider rounded-full focus:ring-primary focus:ring-2"
+                    />
+                    <label
+                        for="bordered-checkbox-1"
+                        class="w-full py-2.5 mx-4 text-sm font-medium text-white"
+                    >
+                        Barat
+                    </label>
+                </div>
+            </div>
         </>
     );
 }

@@ -1,0 +1,11 @@
+input[type="range"] {
+    @apply w-full mb-4 h-2 bg-divider rounded-lg appearance-none cursor-pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    width: 18px;
+    -webkit-appearance: none;
+    height: 18px;
+    cursor: ew-resize;
+    background: #fca311;
+}

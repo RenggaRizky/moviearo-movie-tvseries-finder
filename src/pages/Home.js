@@ -20,7 +20,7 @@ export default function Home() {
                 <Hero />
                 <LatestMovie />
                 <LatestTvSeries />
-                <div className="bg-lightblack gap-y-6 md:bg-darkblack md:grid md:grid-cols-2 md:gap-x-4 xl:gap-x-8 xl:gap-y-8">
+                <div className="bg-lightblack gap-y-6 md:bg-darkblack md:grid md:grid-cols-2 md:gap-x-4 xl:gap-x-8 xl:gap-y-8 ">
                     <PopularMovie />
                     <PopularTvSeries />
                     <TopRatedMovie />

@@ -1,7 +1,9 @@
 import Home from "pages/Home";
 import Movie from "pages/Movie";
+import NowPlayingMovie from "pages/NowPlayingMovie";
 import PopularMovie from "pages/PopularMovie";
 import Series from "pages/Series";
+import UpcomingMovie from "pages/UpcomingMovie";
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
@@ -16,6 +18,14 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/film/:id" element={<Movie />} />
                 <Route path="/film/populer" element={<PopularMovie />} />
+                <Route
+                    path="/film/sedang-diputar"
+                    element={<NowPlayingMovie />}
+                />
+                <Route
+                    path="/film/yang-akan-datang"
+                    element={<UpcomingMovie />}
+                />
                 <Route path="/serialtv/:id" element={<Series />} />
             </Routes>
         </div>

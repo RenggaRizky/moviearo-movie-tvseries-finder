@@ -10,7 +10,7 @@ export default function Tab({
     return (
         <>
             <label
-                htmlFor={value}
+                htmlhtmlFor={value}
                 className={[
                     tabValue === value
                         ? "text-primary border-b-2 border-primary border-solid"

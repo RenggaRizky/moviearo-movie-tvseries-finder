@@ -52,9 +52,9 @@ export default function LatestMovie() {
                 <section className="px-6">
                     <div className="mb-12">
                         <TitleSection
-                            title="Film terbaru"
+                            title="Film sedang diputar"
                             viewAll={true}
-                            link="/"
+                            link="/film/sedang-diputar"
                         />
                     </div>
                     <div className="flex gap-x-4 overflow-x-scroll group mb-14 scrollbar-hide">

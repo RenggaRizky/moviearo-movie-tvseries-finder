@@ -51,7 +51,7 @@ export default function PopularMovie() {
                         <TitleSection
                             title="Film terpopuler"
                             viewAll={true}
-                            link="/"
+                            link="/film/populer"
                         />
                     </div>
                     {data

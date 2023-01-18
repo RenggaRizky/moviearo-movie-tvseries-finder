@@ -4,11 +4,11 @@ import ScoreRange from "components/ScoreRange";
 import React, { useState } from "react";
 
 export default function Filter() {
-    const [toggle, setToggle] = useState(false);
+    const [toggle, setToggle] = useState(true);
     const [maxScoreRange, setMaxScoreRange] = useState(100);
     const [minScoreRange, setMinScoreRange] = useState(0);
     return (
-        <section className="px-7 mb-16 md:mt-16 lg:pl-7">
+        <section className="px-7 mb-16  lg:pl-7">
             <div id="accordion-collapse" data-accordion="collapse">
                 <h2 id="accordion-collapse-heading-1">
                     <button

@@ -3,6 +3,7 @@ import Movie from "pages/Movie";
 import NowPlayingMovie from "pages/NowPlayingMovie";
 import PopularMovie from "pages/PopularMovie";
 import Series from "pages/Series";
+import TopRatedMovie from "pages/TopRatedMovie";
 import UpcomingMovie from "pages/UpcomingMovie";
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
@@ -26,6 +27,7 @@ function App() {
                     path="/film/yang-akan-datang"
                     element={<UpcomingMovie />}
                 />
+                <Route path="/film/top-rating" element={<TopRatedMovie />} />
                 <Route path="/serialtv/:id" element={<Series />} />
             </Routes>
         </div>

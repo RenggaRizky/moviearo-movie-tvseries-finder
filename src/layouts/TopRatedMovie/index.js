@@ -50,7 +50,7 @@ export default function TopRatedMovie() {
                         <TitleSection
                             title="Top rating film"
                             viewAll={true}
-                            link="/"
+                            link="/film/top-rating"
                         />
                     </div>
                     {data

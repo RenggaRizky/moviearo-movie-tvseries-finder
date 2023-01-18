@@ -1,12 +1,12 @@
 import BtnPrimary from "components/Button/Primary";
 import MovieCard from "components/MovieCard";
-import TitleSection from "components/TitleSection";
 import MovieCardSkeleton from "components/MovieCardSkeleton";
+import TitleSection from "components/TitleSection";
 import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
 import React, { useEffect, useMemo, useState } from "react";
 
-export default function NowPlayingMoviePage() {
-    const [nowPlayingMovies, setNowPlayingMovies] = useState(null);
+export default function TopRatedMoviePage() {
+    const [topRatedMovies, setTopRatedMovies] = useState(null);
     const [loading, setLoading] = useState(true);
     const [page, setPage] = useState(1);
     const [btnValue, setBtnValue] = useState("Muat lebih banyak");
@@ -24,7 +24,7 @@ export default function NowPlayingMoviePage() {
 
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=${page}`,
+            `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=${page}`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
@@ -37,14 +37,14 @@ export default function NowPlayingMoviePage() {
                 return response.json();
             })
             .then((data) => {
-                if (nowPlayingMovies === null) {
-                    setNowPlayingMovies(data.results);
+                if (topRatedMovies === null) {
+                    setTopRatedMovies(data.results);
                 } else {
-                    setNowPlayingMovies([...nowPlayingMovies, ...data.results]);
+                    setTopRatedMovies([...topRatedMovies, ...data.results]);
                 }
             })
             .catch((error) => {
-                setNowPlayingMovies(null);
+                setTopRatedMovies(null);
                 console.log(error.message);
             })
             .finally(() => {
@@ -52,12 +52,12 @@ export default function NowPlayingMoviePage() {
             });
     }, [page]);
 
-    const data = useMemo(() => nowPlayingMovies, [nowPlayingMovies]);
+    const data = useMemo(() => topRatedMovies, [topRatedMovies]);
 
     return (
         <section className="px-7">
             <div className=" mb-8">
-                <TitleSection title="Film sedang diputar" viewAll={false} />
+                <TitleSection title="Film top rating" viewAll={false} />
                 <i className="text-gray-400 text-xs leading-7 mt-6">
                     *hanya menampilkan 100 teratas
                 </i>
@@ -96,6 +96,7 @@ export default function NowPlayingMoviePage() {
                             );
                         })}
                     </div>
+
                     {page !== 5 && (
                         <div className="my-8 md:w-1/2 md:mx-auto">
                             <BtnPrimary

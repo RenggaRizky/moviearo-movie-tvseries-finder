@@ -1,6 +1,8 @@
 import BtnPrimary from "components/Button/Primary";
 import MovieCard from "components/MovieCard";
+import MovieCardSkeleton from "components/MovieCardSkeleton";
 import TitleSection from "components/TitleSection";
+import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
 import React, { useEffect, useMemo, useState } from "react";
 
 export default function PopularMoviePage() {
@@ -54,46 +56,55 @@ export default function PopularMoviePage() {
 
     return (
         <section className="px-7">
-            <div className=" mb-8">
-                <TitleSection title="Film terpopuler" viewAll={false} />
-                <i className="text-gray-400 text-xs leading-7 mt-6">
-                    *hanya menampilkan 100 teratas
-                </i>
-            </div>
-
             {loading ? (
-                <p>loading</p>
-            ) : (
-                <div
-                    className={[
-                        page === 5 ? "mb-8" : "",
-                        "flex flex-wrap justify-around",
-                    ].join(" ")}
-                >
-                    {data.map((data) => {
-                        return (
-                            <MovieCard
-                                key={data.id}
-                                id={data.id}
-                                title={data.original_title}
-                                picture={`https://image.tmdb.org/t/p/original/${data.poster_path}`}
-                                score={data.vote_average}
-                                date={data.release_date}
-                                link={`/film/${data.id}`}
-                            />
-                        );
-                    })}
-                </div>
-            )}
+                <>
+                    <div className=" mb-8">
+                        <TitleSectionSkeleton />
+                        <div className="bg-gray-800 h-5 w-28 animate-pulse rounded-full mt-2 md:w-32 lg:w-36 xl:w-40" />
+                    </div>
 
-            {page !== 5 && (
-                <div className="my-8">
-                    <BtnPrimary
-                        value={btnValue}
-                        onClick={handleLoadMore}
-                        disabled={disabledBtn}
-                    />
-                </div>
+                    <div className="flex flex-wrap justify-around">
+                        <MovieCardSkeleton />
+                    </div>
+                </>
+            ) : (
+                <>
+                    <div className=" mb-8">
+                        <TitleSection title="Film terpopuler" viewAll={false} />
+                        <i className="text-gray-400 text-xs leading-7 mt-6">
+                            *hanya menampilkan 100 teratas
+                        </i>
+                    </div>
+                    <div
+                        className={[
+                            page === 5 ? "mb-8" : "",
+                            "grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3  xl:grid-cols-4",
+                        ].join(" ")}
+                    >
+                        {data.map((data) => {
+                            return (
+                                <MovieCard
+                                    key={data.id}
+                                    id={data.id}
+                                    title={data.original_title}
+                                    picture={`https://image.tmdb.org/t/p/original/${data.poster_path}`}
+                                    score={data.vote_average}
+                                    date={data.release_date}
+                                    link={`/film/${data.id}`}
+                                />
+                            );
+                        })}
+                    </div>
+                    {page !== 5 && (
+                        <div className="my-8 md:w-1/2 md:mx-auto">
+                            <BtnPrimary
+                                value={btnValue}
+                                onClick={handleLoadMore}
+                                disabled={disabledBtn}
+                            />
+                        </div>
+                    )}
+                </>
             )}
         </section>
     );

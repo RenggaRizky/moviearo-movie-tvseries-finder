@@ -12,7 +12,7 @@ export default function MovieCard({ id, title, picture, score, date, link }) {
     const handleMouseOut = useCallback(() => setHover(false), []);
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center">
             <Link
                 to={link}
                 state={{ id }}

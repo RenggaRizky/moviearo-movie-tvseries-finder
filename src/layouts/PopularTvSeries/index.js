@@ -51,7 +51,7 @@ export default function PopularTvSeries() {
                         <TitleSection
                             title="Serial TV terpopuler"
                             viewAll={true}
-                            link="/"
+                            link="/serialtv/populer"
                         />
                     </div>
                     {data
@@ -59,7 +59,8 @@ export default function PopularTvSeries() {
                         .map((data) => {
                             return (
                                 <MovieLink
-                                    key={data.original_name}
+                                    id={data.id}
+                                    key={data.id}
                                     title={data.original_name}
                                     score={data.vote_average}
                                     link={`/serialtv/${data.id}`}

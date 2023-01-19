@@ -1,21 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import FooterLink from "components/FooterLink";
 import mobileLogo from "assets/images/logo-small.svg";
 import desktopLogo from "assets/images/logo.svg";
 
+const FooterTitle = ({ children }) => {
+    return (
+        <h3 className="text-white font-medium text-xl mt-8 mb-4 sm:mt-0 md:mb-7">
+            {children}
+        </h3>
+    );
+};
+
+const FooterItem = ({ children }) => {
+    return (
+        <li className="text-lightgray text-base capitalize lg:text-sm  transition-all delay-200 duration-200 ease-in-out hover:text-slate-500">
+            <Link to="/">{children}</Link>
+        </li>
+    );
+};
+
 export default function FooterMenu() {
-    const footerLinkA = [
-        "Tentang kami",
-        "Hubungi kami",
-        "Forum",
-        "Status sistem",
-    ];
-
-    const footerLinkB = ["Pedoman", "Diskusi", "Peringkat"];
-
-    const footerLinkC = ["Ketentuan", "Kebijakan privasi", "Petunjuk"];
-
     return (
         <div className="px-6 py-12 bg-lightblack ">
             <div className="container mx-auto mb-16 sm:grid sm:grid-cols-2 sm:gap-y-6 md:grid-cols-3 md:gap-y-10 lg:grid-cols-4 lg:max-w-5xl lg:mx-auto xl:max-w-7xl">
@@ -31,12 +35,33 @@ export default function FooterMenu() {
                         alt="Moviearo Logo"
                     />
 
-                    <FooterLink data={footerLinkA} />
+                    <ul className="space-y-1 lg:space-y-2">
+                        <FooterItem>Tentang kami</FooterItem>
+                        <FooterItem>Hubungi kami</FooterItem>
+                        <FooterItem>Forum</FooterItem>
+                        <FooterItem>Status sistem</FooterItem>
+                    </ul>
                 </div>
 
-                <FooterLink data={footerLinkB} title="Komunitas" />
+                <div>
+                    <FooterTitle>Komunitas</FooterTitle>
 
-                <FooterLink data={footerLinkC} title="Aturan" />
+                    <ul className="space-y-1 lg:space-y-2">
+                        <FooterItem>Pedoman</FooterItem>
+                        <FooterItem>Diskusi</FooterItem>
+                        <FooterItem>Peringkat</FooterItem>
+                    </ul>
+                </div>
+
+                <div>
+                    <FooterTitle>Aturan</FooterTitle>
+
+                    <ul className="space-y-1 lg:space-y-2">
+                        <FooterItem>Ketentuan</FooterItem>
+                        <FooterItem>Kebijakan Privasi</FooterItem>
+                        <FooterItem>Petunjuk</FooterItem>
+                    </ul>
+                </div>
 
                 <div>
                     <h3 className="text-white font-medium text-xl mt-8 mb-4 capitalize sm:mt-0 md:mb-7">

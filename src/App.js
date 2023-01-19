@@ -1,7 +1,10 @@
+import TopRatedTvSeries from "pages/TopRatedTvSeries";
 import Home from "pages/Home";
 import Movie from "pages/Movie";
 import NowPlayingMovie from "pages/NowPlayingMovie";
+import NowPlayingTvSeries from "pages/NowPlayingTvSeries";
 import PopularMovie from "pages/PopularMovie";
+import PopularTvSeries from "pages/PopularTvSeries";
 import Series from "pages/Series";
 import TopRatedMovie from "pages/TopRatedMovie";
 import UpcomingMovie from "pages/UpcomingMovie";
@@ -28,7 +31,17 @@ function App() {
                     element={<UpcomingMovie />}
                 />
                 <Route path="/film/top-rating" element={<TopRatedMovie />} />
+
                 <Route path="/serialtv/:id" element={<Series />} />
+                <Route path="/serialtv/populer" element={<PopularTvSeries />} />
+                <Route
+                    path="/serialtv/hari-ini"
+                    element={<NowPlayingTvSeries />}
+                />
+                <Route
+                    path="/serialtv/top-rating"
+                    element={<TopRatedTvSeries />}
+                />
             </Routes>
         </div>
     );

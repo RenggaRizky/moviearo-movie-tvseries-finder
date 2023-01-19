@@ -54,7 +54,7 @@ export default function LatestTvSeries() {
                         <TitleSection
                             title="Serial TV hari ini"
                             viewAll={true}
-                            link="/"
+                            link="/serialtv/hari-ini"
                         />
                     </div>
                     <div className="flex gap-x-4 overflow-x-scroll group mb-14 scrollbar-hide">

@@ -32,17 +32,17 @@ export default function Hero() {
                         <div className="flex gap-x-2">
                             <input
                                 type="text"
-                                className="basis-4/5  -skew-x-12 bg-lightblack border rounded-b-xl rounded-tl-xl rounded-tr-md border-lightblack  text-lightgray text-sm  focus:ring-primary focus:border-primary block w-full py-2.5 lg:text-base"
+                                className="basis-4/5  bg-lightblack border border-lightblack  text-lightgray text-sm  focus:ring-primary focus:border-primary block w-full py-2.5 lg:text-base"
                                 placeholder="Cari film, serial tv, ..."
                             />
                             <button
                                 type="submit"
-                                className="basis-1/5 bg-primary  rounded-t-xl rounded-br-xl rounded-bl-md -skew-x-12 flex justify-center items-center hover:bg-secondary group"
+                                className="basis-1/5 bg-primary flex justify-center items-center hover:bg-secondary group"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="currentColor"
-                                    className="text-white w-4 skew-x-12 group-hover:scale-125 ease-in-out transition-all duration-150 delay-150"
+                                    className="text-white w-4 group-hover:scale-125 ease-in-out transition-all duration-150 delay-150"
                                     viewBox="0 0 16 16"
                                 >
                                     <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />{" "}

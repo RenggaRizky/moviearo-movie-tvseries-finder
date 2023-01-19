@@ -253,17 +253,17 @@ export default function NavbarMenu() {
                                         </NavLink>
                                     </li>
 
-                                    {/* SERIAL SEDANG DIPUTAR */}
+                                    {/* SERIAL HARI INI */}
                                     <li>
                                         <NavLink
-                                            to="/serialtv/sedang-diputar"
+                                            to="/serialtv/hari-ini"
                                             className={({ isActive }) =>
                                                 isActive
                                                     ? activeMenu
                                                     : deactiveMenu
                                             }
                                         >
-                                            Sedang Diputar
+                                            Hari Ini
                                         </NavLink>
                                     </li>
 

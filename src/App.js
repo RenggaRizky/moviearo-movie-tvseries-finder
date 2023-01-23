@@ -10,6 +10,8 @@ import TopRatedMovie from "pages/TopRatedMovie";
 import UpcomingMovie from "pages/UpcomingMovie";
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import Search from "pages/Search";
+import SearchProvider from "helpers/context/search";
 
 function App() {
     useEffect(() => {
@@ -17,33 +19,23 @@ function App() {
     }, []);
 
     return (
-        <div className="App font-inter">
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/film/:id" element={<Movie />} />
-                <Route path="/film/populer" element={<PopularMovie />} />
-                <Route
-                    path="/film/sedang-diputar"
-                    element={<NowPlayingMovie />}
-                />
-                <Route
-                    path="/film/yang-akan-datang"
-                    element={<UpcomingMovie />}
-                />
-                <Route path="/film/top-rating" element={<TopRatedMovie />} />
-
-                <Route path="/serialtv/:id" element={<Series />} />
-                <Route path="/serialtv/populer" element={<PopularTvSeries />} />
-                <Route
-                    path="/serialtv/hari-ini"
-                    element={<NowPlayingTvSeries />}
-                />
-                <Route
-                    path="/serialtv/top-rating"
-                    element={<TopRatedTvSeries />}
-                />
-            </Routes>
-        </div>
+        <SearchProvider>
+            <div className="App font-inter">
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/film/:id" element={<Movie />} />
+                    <Route path="/film/populer" element={<PopularMovie />} />
+                    <Route path="/film/sedang-diputar" element={<NowPlayingMovie />} />
+                    <Route path="/film/yang-akan-datang" element={<UpcomingMovie />} />
+                    <Route path="/film/top-rating" element={<TopRatedMovie />} />
+                    <Route path="/serialtv/:id" element={<Series />} />
+                    <Route path="/serialtv/populer" element={<PopularTvSeries />} />
+                    <Route path="/serialtv/hari-ini" element={<NowPlayingTvSeries />} />
+                    <Route path="/serialtv/top-rating" element={<TopRatedTvSeries />} />
+                    <Route path='/search' element={<Search/>}/>
+                </Routes>
+            </div>
+        </SearchProvider>
     );
 }
 

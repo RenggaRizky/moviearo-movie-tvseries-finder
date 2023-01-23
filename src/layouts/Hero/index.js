@@ -1,7 +1,26 @@
-import React from "react";
+import React, { useRef } from "react";
 import heroImg from "assets/images/hero.svg";
+import { useNavigate, useSearchParams } from "react-router-dom";
+
 
 export default function Hero() {
+    const searchRef = useRef(null);
+    const navigate = useNavigate();
+
+    const [searchParams, setSearchParams] = useSearchParams();
+
+
+    const handleSubmit = (event) => {
+        
+        const query = searchRef.current['query'].value;
+        // searchParams.get(query)
+        navigate({
+            pathname: '/search',
+            search: searchParams.get(query)
+        })
+    }
+
+
     return (
         <section className="px-6 lg:mt-10 xl:mb-32">
             <div className="md:grid md:grid-cols-2 md:justify-around md:items-center">
@@ -28,12 +47,17 @@ export default function Hero() {
                         terkait film, serial, aktor, aktris, dan yang lain
                         disini
                     </p>
-                    <form className="mb-16">
+                    <form 
+                        className="mb-16" 
+                        onSubmit={handleSubmit}   
+                        ref={searchRef}     
+                    >
                         <div className="flex gap-x-2">
                             <input
                                 type="text"
                                 className="basis-4/5  bg-lightblack border border-lightblack  text-lightgray text-sm  focus:ring-primary focus:border-primary block w-full py-2.5 lg:text-base"
                                 placeholder="Cari film, serial tv, ..."
+                                name="query"
                             />
                             <button
                                 type="submit"

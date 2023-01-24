@@ -1,23 +1,15 @@
 import React, { useRef } from "react";
 import heroImg from "assets/images/hero.svg";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearch } from "helpers/context/search";
 
 
 export default function Hero() {
     const searchRef = useRef(null);
-    const navigate = useNavigate();
+    const search = useSearch()
 
-    const [searchParams, setSearchParams] = useSearchParams();
-
-
-    const handleSubmit = (event) => {
-        
+    const handleSubmit = async () => {
         const query = searchRef.current['query'].value;
-        // searchParams.get(query)
-        navigate({
-            pathname: '/search',
-            search: searchParams.get(query)
-        })
+        await search.submit(query)
     }
 
 

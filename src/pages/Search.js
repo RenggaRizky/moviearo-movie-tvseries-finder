@@ -12,7 +12,6 @@ export default function Search() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // https://api.themoviedb.org/3/search/multi?api_key=<<api_key>>&language=en-US&query=test&page=1&include_adult=false
         fetch(
             `https://api.themoviedb.org/3/search/multi?api_key=${process.env.REACT_APP_API_KEY}&query=${search.query}&include_adult=false`,
             {
@@ -35,17 +34,13 @@ export default function Search() {
                             item.media_type === "tv"
                     )
                 );
+                setLoading(false);
             })
             .catch((error) => {
                 setResults(null);
                 console.log(error.message);
-            })
-            .finally(() => {
-                setLoading(false);
             });
     }, [search.query]);
-
-    console.log(results);
 
     if (loading) {
         return <p>loading</p>;

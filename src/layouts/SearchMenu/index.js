@@ -1,15 +1,18 @@
 import { useSearch } from "helpers/context/search";
-import React from "react";
+import React, { useRef } from "react";
 export default function SearchMenu() {
     const search = useSearch();
+    const searchRef = useRef(search.query);
+
     return (
-        <form className="mb-16">
+        <form className="mb-16" ref={searchRef}>
             <div className="flex gap-x-2 px-6">
                 <input
                     type="text"
                     className="xl:basis-[90%]  bg-lightblack border border-lightblack  text-lightgray text-sm  focus:ring-primary focus:border-primary block w-full py-2.5 lg:text-base"
                     placeholder="Cari film, serial tv, ..."
                     defaultValue={search.query}
+                    name="query"
                 />
                 <button
                     type="submit"

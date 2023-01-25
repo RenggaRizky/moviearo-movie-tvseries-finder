@@ -1,13 +1,12 @@
 import React, { createContext, useContext, useReducer } from "react";
-import { createSearchParams, useNavigate } from "react-router-dom";
+import {
+    createSearchParams,
+    useSearchParams,
+    useNavigate,
+} from "react-router-dom";
 
 const SearchContext = createContext();
 export const useSearch = () => useContext(SearchContext);
-
-const initialStateSearch = {
-    query: "",
-    loading: true,
-};
 
 const searchAction = {
     SET_LOADING: "SET_LOADING",
@@ -28,6 +27,13 @@ const searchReducer = (state, action) => {
 };
 
 export default function SearchProvider({ children }) {
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const initialStateSearch = {
+        query: searchParams.get("query"),
+        loading: true,
+    };
+
     const navigate = useNavigate();
     const [state, dispatch] = useReducer(searchReducer, initialStateSearch);
 
@@ -41,6 +47,7 @@ export default function SearchProvider({ children }) {
             }).toString(),
         });
     };
+
     return (
         <SearchContext.Provider value={{ ...state, submit }}>
             {children}

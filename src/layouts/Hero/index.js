@@ -2,16 +2,14 @@ import React, { useRef } from "react";
 import heroImg from "assets/images/hero.svg";
 import { useSearch } from "helpers/context/search";
 
-
 export default function Hero() {
     const searchRef = useRef(null);
-    const search = useSearch()
+    const search = useSearch();
 
     const handleSubmit = async () => {
-        const query = searchRef.current['query'].value;
-        await search.submit(query)
-    }
-
+        const query = searchRef.current["query"].value;
+        await search.submitHomePage(query);
+    };
 
     return (
         <section className="px-6 lg:mt-10 xl:mb-32">
@@ -39,10 +37,10 @@ export default function Hero() {
                         terkait film, serial, aktor, aktris, dan yang lain
                         disini
                     </p>
-                    <form 
-                        className="mb-16" 
-                        onSubmit={handleSubmit}   
-                        ref={searchRef}     
+                    <form
+                        className="mb-16"
+                        onSubmit={handleSubmit}
+                        ref={searchRef}
                     >
                         <div className="flex gap-x-2">
                             <input

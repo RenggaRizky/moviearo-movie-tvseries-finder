@@ -5,6 +5,7 @@ import MovieCardHorizontal from "components/MovieCardHorizontal";
 import { useSearch } from "helpers/context/search";
 import blankProfile from "assets/images/blank-profile.png";
 import SearchMenu from "layouts/SearchMenu";
+import moment from "moment";
 
 export default function Search() {
     const search = useSearch();
@@ -47,17 +48,20 @@ export default function Search() {
     }
     return (
         <Wrapper>
-            <section className="lg:max-w-5xl lg:mx-auto  xl:max-w-7xl">
+            <section className="lg:max-w-5xl lg:mx-auto  xl:max-w-7xl mb-36">
                 <SearchMenu />
                 <div className="px-7">
                     <div className="mb-8">
-                        <TitleSection title="Hasil pencarian" />
+                        <TitleSection
+                            title={`Hasil pencarian "${search.query}"`}
+                        />
                     </div>
 
                     {results.map((item) => {
                         return (
                             <MovieCardHorizontal
                                 key={item.id}
+                                id={item.id}
                                 picture={
                                     item.poster_path
                                         ? `https://image.tmdb.org/t/p/original/${item.poster_path}`
@@ -67,6 +71,20 @@ export default function Search() {
                                 score={item.vote_average}
                                 title={
                                     item.original_name || item.original_title
+                                }
+                                year={
+                                    item.release_date
+                                        ? moment(item.release_date).format("Y")
+                                        : item.first_air_date
+                                        ? moment(item.first_air_date).format(
+                                              "Y"
+                                          )
+                                        : " - "
+                                }
+                                link={
+                                    item.media_type === "movie"
+                                        ? `/film/${item.id}`
+                                        : `/serialtv/${item.id}`
                                 }
                             />
                         );

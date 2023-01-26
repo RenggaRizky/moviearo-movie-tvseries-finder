@@ -7,8 +7,9 @@ export default function Hero() {
     const search = useSearch();
 
     const handleSubmit = async () => {
+        // event.preventDefault();
         const query = searchRef.current["query"].value;
-        await search.submitHomePage(query);
+        await search.submit(query);
     };
 
     return (

@@ -6,7 +6,9 @@ export default function MovieCardHorizontal({
     media,
     score,
     title,
-    desc,
+    year,
+    link,
+    id,
 }) {
     const [hover, setHover] = useState(false);
     const handleMouseOver = useCallback(() => setHover(true), []);
@@ -14,13 +16,13 @@ export default function MovieCardHorizontal({
 
     return (
         <>
-            <div className="flex items-start gap-x-4">
+            <div className="flex items-start gap-x-4 md:gap-x-6">
                 <Link
-                    // to={link}
-                    // state={{ id }}
+                    to={link}
+                    state={{ id }}
                     className={[
                         hover ? "hover:scale-100" : "",
-                        "mb-4 relative lg:mb-6 w-60 h-28 overflow-hidden transition-all duration-500 group",
+                        "mb-4 relative lg:mb-6 w-24 h-36 overflow-hidden transition-all duration-500 group",
                     ].join(" ")}
                 >
                     <div
@@ -39,15 +41,17 @@ export default function MovieCardHorizontal({
                         {score.toFixed(1)}
                     </div>
                 </Link>
-                <div className="flex flex-col h-28 gap-y-0.5 justify-center">
-                    {/* <Link to={link} state={{ id }}> */}
-                    <h3 className="cursor-pointer text-white font-semibold text-sm  truncate overflow-hidden w-56 text-ellipsis lg:text-base">
-                        {title}
-                    </h3>
-                    {/* </Link> */}
-
-                    <p className="text-xs lg:text-sm text-primary font-medium capitalize">
-                        {media === "movie" ? "Film" : "serial TV"}
+                <div className="flex flex-col h-36 gap-y-0.5 justify-center">
+                    <Link to={link} state={{ id }}>
+                        <h3 className="text-white w-56 cursor-pointer font-semibold text-sm  truncate overflow-hidden  text-ellipsis md:text-base  sm:w-auto">
+                            {title}
+                        </h3>
+                    </Link>
+                    <p className="text-xs md:text-sm text-lightgray font-medium capitalize">
+                        {media === "movie" ? "Film" : "serial TV"} ({year})
+                    </p>
+                    <p className="text-xs md:text-sm text-lightgray font-medium capitalize">
+                        Ludwig, Richard, Kevin, Lucas
                     </p>
                 </div>
             </div>

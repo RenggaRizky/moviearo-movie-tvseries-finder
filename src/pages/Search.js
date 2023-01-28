@@ -3,14 +3,18 @@ import Wrapper from "layouts/Wrapper";
 import TitleSection from "components/TitleSection";
 import MovieCardHorizontal from "components/MovieCardHorizontal";
 import { useSearch } from "helpers/context/search";
-import blankProfile from "assets/images/blank-profile.png";
+import blankMovie from "assets/images/blank-movie.png";
 import SearchMenu from "layouts/SearchMenu";
 import moment from "moment";
+import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
+import MovieCardHorizontalSkeleton from "components/MovieCardHorizontalSkeleton";
+import NoDataCard from "components/NoDataCard";
 
 export default function Search() {
     const search = useSearch();
     const [results, setResults] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
     useEffect(() => {
         fetch(
@@ -22,7 +26,8 @@ export default function Search() {
         )
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error(`HTTP response code ${response.code}`);
+                    setError(true);
+                    throw new Error(`HTTP response code ${response.message}`);
                 }
                 setLoading(true);
                 return response.json();
@@ -43,9 +48,42 @@ export default function Search() {
             });
     }, [search.query]);
 
-    if (loading) {
-        return <p>loading</p>;
+    console.log({ loading, error });
+
+    if (error || results?.length === 0) {
+        return (
+            <Wrapper>
+                <section className="lg:max-w-5xl lg:mx-auto  xl:max-w-7xl mb-36">
+                    <SearchMenu />
+                    <div className="px-7">
+                        <div className="mb-8">
+                            <TitleSection
+                                title={`Hasil pencarian "${search.query}"`}
+                            />
+                        </div>
+                        <NoDataCard message="sesuatu yang anda cari tidak ditemukan" />
+                    </div>
+                </section>
+            </Wrapper>
+        );
     }
+
+    if (loading) {
+        return (
+            <Wrapper>
+                <section className="lg:max-w-5xl lg:mx-auto  xl:max-w-7xl mb-36">
+                    <SearchMenu />
+                    <div className="px-7">
+                        <div className="mb-8">
+                            <TitleSectionSkeleton />
+                        </div>
+                        <MovieCardHorizontalSkeleton />
+                    </div>
+                </section>
+            </Wrapper>
+        );
+    }
+
     return (
         <Wrapper>
             <section className="lg:max-w-5xl lg:mx-auto  xl:max-w-7xl mb-36">
@@ -65,7 +103,7 @@ export default function Search() {
                                 picture={
                                     item.poster_path
                                         ? `https://image.tmdb.org/t/p/original/${item.poster_path}`
-                                        : blankProfile
+                                        : blankMovie
                                 }
                                 media={item.media_type}
                                 score={item.vote_average}

@@ -2,6 +2,8 @@ import React, { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/id";
+import blankMovie from "assets/images/blank-movie.png";
+
 export default function MovieCard({ id, title, picture, score, date, link }) {
     const [hover, setHover] = useState(false);
 
@@ -29,22 +31,24 @@ export default function MovieCard({ id, title, picture, score, date, link }) {
                         "absolute bg-cover bg-center h-full w-full transition-all ease-in-out duration-500",
                     ].join(" ")}
                     style={{
-                        backgroundImage: `url(${picture})`,
+                        backgroundImage: picture
+                            ? `url(https://image.tmdb.org/t/p/original/${picture})`
+                            : `url(${blankMovie})`,
                     }}
                 ></div>
 
                 <div className="absolute top-2 right-2 bg-primary w-fit px-1.5 py-1 text-white font-bold border border-solid border-white">
-                    {score.toFixed(1)}
+                    {score ? score.toFixed(1) : "-"}
                 </div>
             </Link>
             <div className="mb-4 lg:mb-6">
                 <Link to={link} state={{ id }}>
                     <h3 className="mb-2 cursor-pointer text-white font-semibold text-sm  truncate overflow-hidden w-36 text-ellipsis lg:w-44 lg:text-base">
-                        {title}
+                        {title ? title : "-"}
                     </h3>
                 </Link>
                 <p className="text-lightgray text-xs lg:text-sm">
-                    {moment(date).format("ll")}
+                    {date ? moment(date).format("ll") : "-"}
                 </p>
             </div>
         </div>

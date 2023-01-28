@@ -3,7 +3,6 @@ import TvCast from "layouts/TvCast";
 import TvDetails from "layouts/TvDetails";
 import TvPoster from "layouts/TvPoster";
 import TvReview from "layouts/TvReview";
-import TvTabLists from "layouts/TvTabLists";
 import TvVideoList from "layouts/TvVideoList";
 import Wrapper from "layouts/Wrapper";
 import React from "react";

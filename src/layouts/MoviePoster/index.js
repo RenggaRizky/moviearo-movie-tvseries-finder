@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/id";
 import { runtime } from "helpers/Runtime";
+import blankMovie from "assets/images/blank-movie.png";
 
 export default function MoviePoster() {
     const [details, setDetails] = useState(null);
@@ -35,29 +36,51 @@ export default function MoviePoster() {
             .finally(() => setLoading(false));
     }, [movieId]);
 
+    console.log(details);
+
     return (
         <>
             {loading ? (
                 <Skeleton />
             ) : (
                 <section
-                    className="bg-fixed bg-cover bg-center md:py-16 md:px-4 lg:justify-between lg:py-24 lg:px-16 lg:gap-x-2"
+                    className="bg-fixed bg-cover bg-center lg:justify-between lg:py-24 lg:px-16 lg:gap-x-2"
                     style={{
-                        backgroundImage: `linear-gradient(rgba(22, 22, 22, 0.7), rgba(22, 22, 22, 0.9)), url(https://image.tmdb.org/t/p/original/${details.backdrop_path})`,
+                        backgroundImage: `linear-gradient(rgba(22, 22, 22, 0.7), rgba(22, 22, 22, 0.9)), url(https://image.tmdb.org/t/p/original/${
+                            details.backdrop_path
+                                ? details.backdrop_path
+                                : details.poster_path
+                        })`,
                     }}
                 >
-                    <div className="md:flex md:justify-evenly lg:max-w-5xl lg:mx-auto  xl:max-w-7xl">
-                        <div className="group relative w-60 h-80 block mx-auto md:m-0 lg:basis-1/2 xl:basis-[30%]">
+                    <div className="lg:flex lg:justify-evenly lg:mx-auto xl:max-w-7xl">
+                        <div
+                            className={[
+                                details.poster_path
+                                    ? "xl:basis-[30%]"
+                                    : " xl:basis-[20%]",
+                                "group relative w-60 h-80 block mx-auto my-8 lg:my-0 lg:basis-1/2",
+                            ].join(" ")}
+                        >
                             <div
-                                className="absolute bg-contain bg-center bg-no-repeat h-full w-full top-5 md:top-0 md:bg-left"
+                                className="absolute bg-contain bg-center bg-no-repeat h-full w-full top-4 lg:top-0 md:bg-left"
                                 style={{
-                                    backgroundImage: `url(https://image.tmdb.org/t/p/original/${details.poster_path})`,
+                                    backgroundImage: details.poster_path
+                                        ? `url(https://image.tmdb.org/t/p/original/${details.poster_path})`
+                                        : `url(${blankMovie})`,
                                 }}
                             ></div>
                         </div>
-                        <div className="bg-lightblack px-8 py-14 text-center mt-9 mb-16 md:m-0 md:flex md:justify-center md:flex-col lg:basis-full">
+                        <div
+                            className={[
+                                details.poster_path ? "" : "xl:basis-[70%]",
+                                "bg-lightblack px-8 py-14 text-center mt-9 mb-16 md:m-0 md:flex md:justify-center md:flex-col lg:basis-full",
+                            ].join(" ")}
+                        >
                             <h3 className="text-lg font-medium uppercase text-white mb-4 md:text-xl">
-                                {details.original_title}
+                                {details.original_title
+                                    ? details.original_title
+                                    : details.title}
                             </h3>
 
                             <div className="text-xs text-lightgray mb-6 space-x-2 md:text-sm">
@@ -70,16 +93,13 @@ export default function MoviePoster() {
                                 </span>
                                 <span>|</span>
                                 <span className="uppercase">
-                                    (
-                                    {details.production_countries[0].iso_3166_1
-                                        ? details.production_countries[0]
-                                              .iso_3166_1
+                                    {details.production_countries.length !== 0
+                                        ? `(${details.production_countries[0].iso_3166_1})`
                                         : "-"}
-                                    )
                                 </span>
                                 <span>|</span>
                                 <span className="capitalize">
-                                    {details.genres
+                                    {details.genres.length !== 0
                                         ? details.genres.map(
                                               (genre, index) =>
                                                   (index ? ", " : "") +
@@ -112,8 +132,8 @@ export default function MoviePoster() {
 
 function Skeleton() {
     return (
-        <section className="bg-fixed bg-cover bg-center md:flex md:justify-evenly md:py-16 md:px-4 lg:justify-between lg:px-16 lg:py-24 lg:gap-x-8">
-            <div className="group relative w-60 h-80 block mx-auto md:m-0 lg:basis-1/2 xl:basis-[30%]">
+        <section className="bg-fixed bg-cover bg-center lg:flex lg:justify-between lg:py-24 lg:px-16 lg:gap-x-8 lg:mx-auto xl:max-w-7xl">
+            <div className="group relative w-60 h-80 block mx-auto my-8 lg:my-0 lg:basis-1/2 xl:basis-[30%]">
                 <div className="absolute bg-gray-800 animate-pulse h-full w-full rounded-2xl top-5 md:top-0 md:bg-left" />
             </div>
             <div className="bg-lightblack px-8 py-14 text-center mt-9 mb-16 md:m-0 md:flex md:justify-center md:flex-col lg:basis-full">

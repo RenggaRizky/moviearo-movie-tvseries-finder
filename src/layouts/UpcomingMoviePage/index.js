@@ -90,7 +90,7 @@ export default function UpcomingMoviePage() {
                                     key={data.id}
                                     id={data.id}
                                     title={data.original_title}
-                                    picture={`https://image.tmdb.org/t/p/original/${data.poster_path}`}
+                                    picture={data.poster_path}
                                     score={data.vote_average}
                                     date={data.release_date}
                                     link={`/film/${data.id}`}

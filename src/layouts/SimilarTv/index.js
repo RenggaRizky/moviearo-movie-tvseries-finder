@@ -67,7 +67,7 @@ export default function SimilarTv() {
                                     key={data.id}
                                     id={data.id}
                                     title={data.name}
-                                    picture={`https://image.tmdb.org/t/p/original/${data.poster_path}`}
+                                    picture={data.poster_path}
                                     score={data.vote_average}
                                     date={data.release_date}
                                     link={`/serialtv/${data.id}`}

@@ -60,7 +60,9 @@ export default function TvPoster() {
                         </div>
                         <div className="bg-lightblack px-8 py-14 text-center mt-9 mb-16 md:m-0 md:flex md:justify-center md:flex-col lg:basis-full">
                             <h3 className="text-lg font-medium uppercase text-white mb-4 md:text-xl">
-                                {details.original_name}
+                                {details.original_name
+                                    ? details.original_name
+                                    : details.name}
                             </h3>
 
                             <div className="text-xs text-lightgray mb-6 space-x-2 md:text-sm">
@@ -73,15 +75,13 @@ export default function TvPoster() {
                                 </span>
                                 <span>|</span>
                                 <span className="uppercase">
-                                    (
-                                    {details.origin_country
-                                        ? details.origin_country
+                                    {details.origin_country !== 0
+                                        ? `(${details.origin_country})`
                                         : "-"}
-                                    )
                                 </span>
                                 <span>|</span>
                                 <span className="capitalize">
-                                    {details.genres
+                                    {details.genres.length !== 0
                                         ? details.genres.map(
                                               (genre, index) =>
                                                   (index ? ", " : "") +
@@ -91,8 +91,14 @@ export default function TvPoster() {
                                 </span>
                                 <span>|</span>
                                 <span>
-                                    {details.number_of_seasons} Musim (
-                                    {details.number_of_episodes} episode){" "}
+                                    {details.number_of_seasons
+                                        ? details.number_of_seasons + " "
+                                        : "0 "}
+                                    Musim (
+                                    {details.number_of_episodes
+                                        ? details.number_of_episodes + " "
+                                        : "0 "}
+                                    episode)
                                 </span>
                             </div>
 

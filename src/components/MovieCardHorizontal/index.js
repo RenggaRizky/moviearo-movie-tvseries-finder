@@ -38,20 +38,22 @@ export default function MovieCardHorizontal({
                     ></div>
 
                     <div className="absolute top-2 right-2 bg-primary w-fit px-1.5 py-1 text-white font-bold border border-solid border-white">
-                        {score.toFixed(1)}
+                        {score ? score.toFixed(1) : "-"}
                     </div>
                 </Link>
                 <div className="flex flex-col h-36 gap-y-0.5 justify-center">
                     <Link to={link} state={{ id }}>
                         <h3 className="text-white w-56 cursor-pointer font-semibold text-sm  truncate overflow-hidden  text-ellipsis md:text-base  sm:w-auto">
-                            {title}
+                            {title ? title : "-"}
                         </h3>
                     </Link>
                     <p className="text-xs md:text-sm text-lightgray font-medium capitalize">
-                        {media === "movie" ? "Film" : "serial TV"} ({year})
-                    </p>
-                    <p className="text-xs md:text-sm text-lightgray font-medium capitalize">
-                        Ludwig, Richard, Kevin, Lucas
+                        {!media
+                            ? "-"
+                            : media === "movie"
+                            ? "Film"
+                            : "serial TV"}{" "}
+                        ({year})
                     </p>
                 </div>
             </div>

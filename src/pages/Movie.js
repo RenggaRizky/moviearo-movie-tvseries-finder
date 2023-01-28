@@ -2,7 +2,6 @@ import MovieCast from "layouts/MovieCast";
 import MovieDetails from "layouts/MovieDetails";
 import MoviePoster from "layouts/MoviePoster";
 import MovieReview from "layouts/MovieReview";
-import MovieTabLists from "layouts/MovieTabLists";
 import MovieVideoList from "layouts/MovieVideoList";
 import SimilarMovie from "layouts/SimilarMovie";
 import Wrapper from "layouts/Wrapper";

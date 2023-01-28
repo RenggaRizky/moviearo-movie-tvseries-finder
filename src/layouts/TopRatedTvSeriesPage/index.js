@@ -90,7 +90,7 @@ export default function TopRatedTvSeriesPage() {
                                     id={data.id}
                                     key={data.id}
                                     title={data.original_name}
-                                    picture={`https://image.tmdb.org/t/p/original/${data.poster_path}`}
+                                    picture={data.poster_path}
                                     score={data.vote_average}
                                     date={data.first_air_date}
                                     link={`/serialtv/${data.id}`}

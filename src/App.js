@@ -12,8 +12,7 @@ import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Search from "pages/Search";
 import SearchProvider from "helpers/context/search";
-import Series404 from "pages/Series404";
-import Movie404 from "pages/Movie404";
+import NotFound from "pages/NotFound";
 
 function App() {
     useEffect(() => {
@@ -25,7 +24,6 @@ function App() {
             <div className="App font-inter">
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/film" element={<Movie404 />} />
                     <Route path="/film/:id" element={<Movie />} />
                     <Route path="/film/populer" element={<PopularMovie />} />
                     <Route
@@ -40,7 +38,6 @@ function App() {
                         path="/film/top-rating"
                         element={<TopRatedMovie />}
                     />
-                    <Route path="/serialtv" element={<Series404 />} />
                     <Route path="/serialtv/:id" element={<Series />} />
                     <Route
                         path="/serialtv/populer"
@@ -55,6 +52,7 @@ function App() {
                         element={<TopRatedTvSeries />}
                     />
                     <Route path="/search" element={<Search />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </div>
         </SearchProvider>

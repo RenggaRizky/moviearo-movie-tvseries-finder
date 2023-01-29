@@ -3,6 +3,7 @@ import MovieCard from "components/MovieCard";
 import MovieCardSkeleton from "components/MovieCardSkeleton";
 import TitleSection from "components/TitleSection";
 import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
+import { useFilter } from "helpers/context/filter";
 import React, { useEffect, useMemo, useState } from "react";
 
 export default function PopularMoviePage() {
@@ -11,6 +12,7 @@ export default function PopularMoviePage() {
     const [page, setPage] = useState(1);
     const [btnValue, setBtnValue] = useState("Muat lebih banyak");
     const [disabledBtn, setDisabledBtn] = useState(false);
+    const filter = useFilter();
 
     const handleLoadMore = () => {
         setTimeout(() => {
@@ -22,9 +24,12 @@ export default function PopularMoviePage() {
         setPage(page + 1);
     };
 
+    console.log(filter.sort);
+
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=${page}`,
+            `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&sort_by=${filter.sort}&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`,
+            // `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=${page}`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
@@ -37,6 +42,7 @@ export default function PopularMoviePage() {
                 return response.json();
             })
             .then((data) => {
+                // LANJUT DISINI, KASIH IFELSE FILTER.SORT BARU IFELSE POPULARMOVIES
                 if (popularMovies === null) {
                     setPopularMovies(data.results);
                 } else {
@@ -50,9 +56,11 @@ export default function PopularMoviePage() {
             .finally(() => {
                 setLoading(false);
             });
-    }, [page]);
+    }, [page, filter.sort]);
 
-    const data = useMemo(() => popularMovies, [popularMovies]);
+    useEffect(() => {}, []);
+
+    // const data = useMemo(() => popularMovies, [popularMovies]);
 
     return (
         <section className="px-7">
@@ -81,7 +89,7 @@ export default function PopularMoviePage() {
                             "grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3  xl:grid-cols-4",
                         ].join(" ")}
                     >
-                        {data.map((data) => {
+                        {popularMovies.map((data) => {
                             return (
                                 <MovieCard
                                     key={data.id}

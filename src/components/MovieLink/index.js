@@ -10,8 +10,17 @@ export default function MovieLink({ id, title, score, link }) {
                     </h3>
                 </Link>
 
-                <div className="bg-primary w-fit px-1.5 py-1 text-white font-bold border border-solid border-white">
+                {/* <div className="bg-primary w-fit px-1.5 py-1 text-white font-bold border border-solid border-white">
                     {score}
+                </div> */}
+
+                <div
+                    className={[
+                        score ? "px-1.5" : "px-3",
+                        " bg-primary w-fit py-1 text-white font-bold border border-solid border-white",
+                    ].join(" ")}
+                >
+                    {score ? score.toFixed(1) * 10 : "-"}
                 </div>
             </div>
 

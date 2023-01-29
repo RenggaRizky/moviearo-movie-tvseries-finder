@@ -1,6 +1,10 @@
 import React, { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 
+const stripe = () => {
+    return <hr className="text-white" />;
+};
+
 export default function MovieCardHorizontal({
     picture,
     media,
@@ -37,8 +41,13 @@ export default function MovieCardHorizontal({
                         }}
                     ></div>
 
-                    <div className="absolute top-2 right-2 bg-primary w-fit px-1.5 py-1 text-white font-bold border border-solid border-white">
-                        {score ? score.toFixed(1) : "-"}
+                    <div
+                        className={[
+                            score ? "px-1.5" : "px-3",
+                            "absolute top-2 right-2 bg-primary w-fit py-1 text-white font-bold border border-solid border-white",
+                        ].join(" ")}
+                    >
+                        {score ? score.toFixed(1) * 10 : "-"}
                     </div>
                 </Link>
                 <div className="flex flex-col h-36 gap-y-0.5 justify-center">

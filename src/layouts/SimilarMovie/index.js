@@ -5,6 +5,7 @@ import TitleSection from "components/TitleSection";
 import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
 import HorizontalDragScroll from "helpers/HorizontalDragScroll";
 import { useLocation } from "react-router-dom";
+import NoDataCard from "components/NoDataCard";
 
 export default function SimilarMovie() {
     const [movies, setMovies] = useState(null);
@@ -50,6 +51,15 @@ export default function SimilarMovie() {
                     </div>
                     <div className="flex gap-x-4 overflow-x-hidden mb-14">
                         <MovieCardSkeleton />
+                    </div>
+                </section>
+            ) : movies.length === 0 ? (
+                <section className="px-6">
+                    <div className="mb-12">
+                        <TitleSection title="Film serupa" viewAll={false} />
+                    </div>
+                    <div className="flex mb-14">
+                        <NoDataCard message="tidak ada film yang serupa" />
                     </div>
                 </section>
             ) : (

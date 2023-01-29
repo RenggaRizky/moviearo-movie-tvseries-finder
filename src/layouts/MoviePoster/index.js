@@ -118,7 +118,7 @@ export default function MoviePoster() {
                             <div className="bg-primary border border-solid border-white text-white text-3xl p-5 font-bold inline-block md:text-4xl md:w-24 md:mx-auto lg:text-[2rem]">
                                 <p>
                                     {details.vote_average
-                                        ? details.vote_average.toFixed(1)
+                                        ? details.vote_average.toFixed(1) * 10
                                         : "-"}
                                 </p>
                             </div>

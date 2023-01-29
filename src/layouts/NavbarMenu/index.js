@@ -23,19 +23,19 @@ export default function NavbarMenu() {
     };
 
     const activeMenu =
-        "block px-4 py-2 text-primary hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent";
+        " block px-4 py-2 text-primary hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent";
     const deactiveMenu =
-        "block px-4 py-2 hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent";
+        " block px-4 py-2 hover:bg-darkblack md:hover:text-primary md:hover:bg-transparent";
 
     const activeHomeMenu =
-        "block py-2 pl-3 pr-4 text-primary hover:bg-darkblack md:hover:bg-transparent md:hover:text-primary md:p-0";
+        " block py-2 pl-3 pr-4 text-primary hover:bg-darkblack md:hover:bg-transparent md:hover:text-primary md:p-0";
     const deactiveHomeMenu =
-        "block py-2 pl-3 pr-4 text-white hover:bg-darkblack md:hover:bg-transparent md:hover:text-primary md:p-0";
+        " block py-2 pl-3 pr-4 text-white hover:bg-darkblack md:hover:bg-transparent md:hover:text-primary md:p-0";
 
     const activeMainMenu =
-        "flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-primary hover:bg-darkblack md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0 md:w-auto";
+        " flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-primary hover:bg-darkblack md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0 md:w-auto";
     const deactiveMainMenu =
-        "flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-white hover:bg-darkblack md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0 md:w-auto";
+        " flex items-center justify-between w-full py-2 pl-3 pr-4 font-medium text-white hover:bg-darkblack md:hover:bg-transparent md:border-0 md:hover:text-primary md:p-0 md:w-auto";
 
     return (
         <nav className="px-2 bg-darkblack border-gray-200 ">

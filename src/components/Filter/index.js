@@ -1,12 +1,23 @@
 import BtnPrimary from "components/Button/Primary";
 import CheckboxItem from "components/CheckboxItem";
 import ScoreRange from "components/ScoreRange";
-import React, { useState } from "react";
+import { useFilter } from "helpers/context/filter";
+import React, { useRef, useState } from "react";
 
 export default function Filter() {
     const [toggle, setToggle] = useState(true);
     const [maxScoreRange, setMaxScoreRange] = useState(100);
     const [minScoreRange, setMinScoreRange] = useState(0);
+
+    const sortDropdownRef = useRef("");
+
+    const filter = useFilter();
+
+    const handleChangeSortType = async () => {
+        const type = await sortDropdownRef.current.value;
+        await filter.sortType(type);
+    };
+
     return (
         <section className="px-7 mb-16  lg:pl-7">
             <div id="accordion-collapse" data-accordion="collapse">
@@ -46,7 +57,10 @@ export default function Filter() {
                     <div className="px-5 pb-5 font-light bg-lightblack rounded-b-xl">
                         <hr className="border-divider mb-8" />
 
-                        <SortDropdown />
+                        <SortDropdown
+                            sortDropdownRef={sortDropdownRef}
+                            filter={filter}
+                        />
 
                         <hr className="border-divider my-8" />
                         <ScoreRange
@@ -70,7 +84,10 @@ export default function Filter() {
                         <GenreCheckbox />
 
                         <hr className="border-divider my-8" />
-                        <BtnPrimary value="Terapkan" />
+                        <BtnPrimary
+                            value="Terapkan"
+                            onClick={() => handleChangeSortType()}
+                        />
                     </div>
                 </div>
             </div>
@@ -78,7 +95,7 @@ export default function Filter() {
     );
 }
 
-function SortDropdown() {
+function SortDropdown({ sortDropdownRef, filter }) {
     return (
         <div>
             <label
@@ -90,10 +107,16 @@ function SortDropdown() {
             <select
                 id="sortDropdown"
                 className="bg-darkblack border border-divider text-white mb-6 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 "
+                defaultValue={filter.sort}
+                ref={sortDropdownRef}
             >
-                <option selected>Choose a country</option>
-                <option value="US">United States</option>
-                <option value="CA">Canada</option>
+                <option selected>Pilih jenis pengurutan</option>
+                <option value={filter.popularityDesc}>
+                    Popularitas tertinggi
+                </option>
+                <option value={filter.popularityAsc}>
+                    Popularitas terendah
+                </option>
                 <option value="FR">France</option>
                 <option value="DE">Germany</option>
             </select>

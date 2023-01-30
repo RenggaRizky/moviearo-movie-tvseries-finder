@@ -24,8 +24,6 @@ export default function PopularMoviePage() {
         setPage(page + 1);
     };
 
-    console.log(filter.sort);
-
     useEffect(() => {
         fetch(
             `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&sort_by=${filter.sort}&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`,
@@ -60,7 +58,7 @@ export default function PopularMoviePage() {
 
     useEffect(() => {}, []);
 
-    // const data = useMemo(() => popularMovies, [popularMovies]);
+    const data = useMemo(() => popularMovies, [popularMovies]);
 
     return (
         <section className="px-7">
@@ -86,10 +84,11 @@ export default function PopularMoviePage() {
                     <div
                         className={[
                             page === 5 ? "mb-8" : "",
-                            "grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3  xl:grid-cols-4",
+                            "grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4  xl:grid-cols-5",
+                            // "grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3  xl:grid-cols-4",
                         ].join(" ")}
                     >
-                        {popularMovies.map((data) => {
+                        {data.map((data) => {
                             return (
                                 <MovieCard
                                     key={data.id}

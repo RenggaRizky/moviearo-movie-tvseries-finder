@@ -48,8 +48,6 @@ export default function Search() {
             });
     }, [search.query]);
 
-    console.log({ loading, error });
-
     if (error || results?.length === 0) {
         return (
             <Wrapper>

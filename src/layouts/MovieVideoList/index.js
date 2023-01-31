@@ -2,7 +2,7 @@ import TitleSection from "components/TitleSection";
 import React, { useEffect, useMemo, useState } from "react";
 import MovieVideo from "components/MovieVideo";
 import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
-
+import useGetPathId from "helpers/useGetPathId";
 import HorizontalDragScroll from "helpers/HorizontalDragScroll";
 import { useLocation } from "react-router-dom";
 import MovieVideoSkeleton from "components/MovieVideoSkeleton";
@@ -14,10 +14,13 @@ export default function MovieVideoList() {
 
     const location = useLocation();
     const movieId = location.state?.id;
+    const getPathId = useGetPathId();
 
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/movie/${movieId}/videos?api_key=${process.env.REACT_APP_API_KEY}`,
+            `https://api.themoviedb.org/3/movie/${
+                movieId || getPathId[0]
+            }/videos?api_key=${process.env.REACT_APP_API_KEY}`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },

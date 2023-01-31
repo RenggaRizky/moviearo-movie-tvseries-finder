@@ -3,6 +3,7 @@ import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
 import { runtime } from "helpers/Runtime";
 import React, { useCallback, useEffect, useReducer } from "react";
 import { useLocation } from "react-router-dom";
+import useGetPathId from "helpers/useGetPathId";
 
 const initialStateDetails = {
     details: null,
@@ -66,11 +67,14 @@ export default function TvDetails() {
 
     const location = useLocation();
     const seriesId = location.state?.id;
+    const getPathId = useGetPathId();
 
     const getSeriesDetails = useCallback(
         (id) => {
             fetch(
-                `https://api.themoviedb.org/3/tv/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
+                `https://api.themoviedb.org/3/tv/${
+                    id || getPathId[0]
+                }?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
                 {
                     mode: "cors",
                     headers: { "Content-Type": "application/json" },
@@ -100,7 +104,9 @@ export default function TvDetails() {
     const getSeriesEngDesc = useCallback(
         (id) => {
             fetch(
-                `https://api.themoviedb.org/3/tv/${id}?api_key=${process.env.REACT_APP_API_KEY}`,
+                `https://api.themoviedb.org/3/tv/${
+                    id || getPathId[0]
+                }?api_key=${process.env.REACT_APP_API_KEY}`,
                 {
                     mode: "cors",
                     headers: { "Content-Type": "application/json" },
@@ -130,7 +136,11 @@ export default function TvDetails() {
     const getSeriesCredits = useCallback(
         (id) => {
             fetch(
-                `https://api.themoviedb.org/3/tv/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
+                `https://api.themoviedb.org/3/tv/${
+                    id || getPathId[0]
+                }/credits?api_key=${
+                    process.env.REACT_APP_API_KEY
+                }&language=id-ID`,
                 {
                     mode: "cors",
                     headers: { "Content-Type": "application/json" },

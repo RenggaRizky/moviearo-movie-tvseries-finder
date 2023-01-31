@@ -4,6 +4,7 @@ import moment from "moment";
 import "moment/locale/id";
 import { runtime } from "helpers/Runtime";
 import blankMovie from "assets/images/blank-movie.png";
+import useGetPathId from "helpers/useGetPathId";
 
 export default function MoviePoster() {
     const [details, setDetails] = useState(null);
@@ -11,10 +12,13 @@ export default function MoviePoster() {
 
     const location = useLocation();
     const movieId = location.state?.id;
+    const getPathId = useGetPathId();
 
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/movie/${movieId}?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
+            `https://api.themoviedb.org/3/movie/${
+                movieId || getPathId[0]
+            }?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
@@ -35,8 +39,6 @@ export default function MoviePoster() {
             })
             .finally(() => setLoading(false));
     }, [movieId]);
-
-    console.log(details);
 
     return (
         <>

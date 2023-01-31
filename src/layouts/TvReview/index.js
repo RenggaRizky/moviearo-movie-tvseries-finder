@@ -5,6 +5,7 @@ import TitleSection from "components/TitleSection";
 import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
 import React, { useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
+import useGetPathId from "helpers/useGetPathId";
 
 export default function TvReview() {
     const [reviews, setReviews] = useState(null);
@@ -12,10 +13,13 @@ export default function TvReview() {
 
     const location = useLocation();
     const seriesId = location.state?.id;
+    const getPathId = useGetPathId();
 
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/tv/${seriesId}/reviews?api_key=${process.env.REACT_APP_API_KEY}`,
+            `https://api.themoviedb.org/3/tv/${
+                seriesId || getPathId[0]
+            }/reviews?api_key=${process.env.REACT_APP_API_KEY}`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },

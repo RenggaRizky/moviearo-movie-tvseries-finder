@@ -3,6 +3,7 @@ import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
 import currency from "currency.js";
 import React, { useCallback, useEffect, useReducer } from "react";
 import { useLocation } from "react-router-dom";
+import useGetPathId from "helpers/useGetPathId";
 
 const initialStateDetails = {
     details: null,
@@ -66,11 +67,14 @@ export default function MovieDetails() {
 
     const location = useLocation();
     const movieId = location.state?.id;
+    const getPathId = useGetPathId();
 
     const getMovieDetails = useCallback(
         (id) => {
             fetch(
-                `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
+                `https://api.themoviedb.org/3/movie/${
+                    id || getPathId[0]
+                }?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
                 {
                     mode: "cors",
                     headers: { "Content-Type": "application/json" },
@@ -100,7 +104,9 @@ export default function MovieDetails() {
     const getMovieEngDesc = useCallback(
         (id) => {
             fetch(
-                `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_API_KEY}`,
+                `https://api.themoviedb.org/3/movie/${
+                    id || getPathId[0]
+                }?api_key=${process.env.REACT_APP_API_KEY}`,
                 {
                     mode: "cors",
                     headers: { "Content-Type": "application/json" },
@@ -130,7 +136,11 @@ export default function MovieDetails() {
     const getMovieCredits = useCallback(
         (id) => {
             fetch(
-                `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
+                `https://api.themoviedb.org/3/movie/${
+                    id || getPathId[0]
+                }/credits?api_key=${
+                    process.env.REACT_APP_API_KEY
+                }&language=id-ID`,
                 {
                     mode: "cors",
                     headers: { "Content-Type": "application/json" },

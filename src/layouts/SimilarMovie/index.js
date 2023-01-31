@@ -6,6 +6,7 @@ import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
 import HorizontalDragScroll from "helpers/HorizontalDragScroll";
 import { useLocation } from "react-router-dom";
 import NoDataCard from "components/NoDataCard";
+import useGetPathId from "helpers/useGetPathId";
 
 export default function SimilarMovie() {
     const [movies, setMovies] = useState(null);
@@ -13,10 +14,15 @@ export default function SimilarMovie() {
 
     const location = useLocation();
     const movieId = location.state?.id;
+    const getPathId = useGetPathId();
 
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/movie/${movieId}/similar?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=1`,
+            `https://api.themoviedb.org/3/movie/${
+                movieId || getPathId[0]
+            }/similar?api_key=${
+                process.env.REACT_APP_API_KEY
+            }&language=id-ID&page=1`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
@@ -53,7 +59,7 @@ export default function SimilarMovie() {
                         <MovieCardSkeleton />
                     </div>
                 </section>
-            ) : movies.length === 0 ? (
+            ) : data.length === 0 ? (
                 <section className="px-6">
                     <div className="mb-12">
                         <TitleSection title="Film serupa" viewAll={false} />

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import moment from "moment";
 import "moment/locale/id";
+import useGetPathId from "helpers/useGetPathId";
 
 export default function TvPoster() {
     const [details, setDetails] = useState(null);
@@ -9,10 +10,13 @@ export default function TvPoster() {
 
     const location = useLocation();
     const seriesId = location.state?.id;
+    const getPathId = useGetPathId();
 
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/tv/${seriesId}?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
+            `https://api.themoviedb.org/3/tv/${
+                seriesId || getPathId[0]
+            }?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
@@ -105,7 +109,7 @@ export default function TvPoster() {
                             <div className="bg-primary border border-solid border-white text-white text-3xl p-5 font-bold inline-block md:text-4xl md:w-24 md:mx-auto lg:text-[2rem]">
                                 <p>
                                     {details.vote_average
-                                        ? details.vote_average.toFixed(1)
+                                        ? details.vote_average.toFixed(1) * 10
                                         : "-"}
                                 </p>
                             </div>

@@ -5,6 +5,8 @@ import TitleSection from "components/TitleSection";
 import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
 import HorizontalDragScroll from "helpers/HorizontalDragScroll";
 import { useLocation } from "react-router-dom";
+import NoDataCard from "components/NoDataCard";
+import useGetPathId from "helpers/useGetPathId";
 
 export default function SimilarTv() {
     const [movies, setMovies] = useState(null);
@@ -12,10 +14,15 @@ export default function SimilarTv() {
 
     const location = useLocation();
     const seriesId = location.state?.id;
+    const getPathId = useGetPathId();
 
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/tv/${seriesId}/similar?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=1`,
+            `https://api.themoviedb.org/3/tv/${
+                seriesId || getPathId[0]
+            }/similar?api_key=${
+                process.env.REACT_APP_API_KEY
+            }&language=id-ID&page=1`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
@@ -52,6 +59,18 @@ export default function SimilarTv() {
                         <MovieCardSkeleton />
                     </div>
                 </section>
+            ) : data.length === 0 ? (
+                <section className="px-6">
+                    <div className="mb-12">
+                        <TitleSection
+                            title="Serial TV serupa"
+                            viewAll={false}
+                        />
+                    </div>
+                    <div className="flex mb-14">
+                        <NoDataCard message="Tidak ada serial TV yang serupa" />
+                    </div>
+                </section>
             ) : (
                 <section className="px-6">
                     <div className="mb-12">
@@ -69,7 +88,7 @@ export default function SimilarTv() {
                                     title={data.name}
                                     picture={data.poster_path}
                                     score={data.vote_average}
-                                    date={data.release_date}
+                                    date={data.first_air_date}
                                     link={`/serialtv/${data.id}`}
                                 />
                             );

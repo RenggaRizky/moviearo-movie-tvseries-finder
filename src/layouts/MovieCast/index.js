@@ -7,6 +7,7 @@ import MovieCardSkeleton from "components/MovieCardSkeleton";
 import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
 import blankProfile from "assets/images/blank-profile.png";
 import NoDataCard from "components/NoDataCard";
+import useGetPathId from "helpers/useGetPathId";
 
 export default function MovieCast() {
     const [cast, setCast] = useState(null);
@@ -14,10 +15,13 @@ export default function MovieCast() {
 
     const location = useLocation();
     const movieId = location.state?.id;
+    const getPathId = useGetPathId();
 
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
+            `https://api.themoviedb.org/3/movie/${
+                movieId || getPathId[0]
+            }/credits?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },

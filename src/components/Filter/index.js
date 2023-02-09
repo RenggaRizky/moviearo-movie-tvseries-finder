@@ -5,13 +5,13 @@ import { useFilter } from "helpers/context/filter";
 import React, { useRef, useState } from "react";
 
 export default function Filter() {
+    const filter = useFilter();
+
     const [toggle, setToggle] = useState(true);
     const [maxScoreRange, setMaxScoreRange] = useState(100);
     const [minScoreRange, setMinScoreRange] = useState(0);
 
     const sortDropdownRef = useRef("");
-
-    const filter = useFilter();
 
     const handleChangeSortType = async () => {
         const type = await sortDropdownRef.current.value;

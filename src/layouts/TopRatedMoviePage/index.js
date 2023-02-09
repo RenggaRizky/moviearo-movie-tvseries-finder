@@ -79,8 +79,7 @@ export default function TopRatedMoviePage() {
                     <div
                         className={[
                             page === 5 ? "mb-8" : "",
-                            "grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4  xl:grid-cols-5",
-                            // "grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3  xl:grid-cols-4",
+                            "grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3  xl:grid-cols-4",
                         ].join(" ")}
                     >
                         {data.map((data) => {

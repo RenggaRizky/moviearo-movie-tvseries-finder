@@ -1,9 +1,11 @@
 import BtnPrimary from "components/Button/Primary";
 import MovieCard from "components/MovieCard";
 import MovieCardSkeleton from "components/MovieCardSkeleton";
+import Pagination from "components/Pagination";
 import TitleSection from "components/TitleSection";
 import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
 import { useFilter } from "helpers/context/filter";
+import { usePagination } from "helpers/context/pagination";
 import React, { useEffect, useMemo, useState } from "react";
 
 export default function PopularMoviePage() {
@@ -13,6 +15,7 @@ export default function PopularMoviePage() {
     const [btnValue, setBtnValue] = useState("Muat lebih banyak");
     const [disabledBtn, setDisabledBtn] = useState(false);
     const filter = useFilter();
+    const pagination = usePagination();
 
     const handleLoadMore = () => {
         setTimeout(() => {
@@ -23,6 +26,8 @@ export default function PopularMoviePage() {
         setDisabledBtn(true);
         setPage(page + 1);
     };
+
+    console.log(pagination.page);
 
     useEffect(() => {
         fetch(
@@ -40,7 +45,6 @@ export default function PopularMoviePage() {
                 return response.json();
             })
             .then((data) => {
-                // LANJUT DISINI, KASIH IFELSE FILTER.SORT BARU IFELSE POPULARMOVIES
                 if (popularMovies === null) {
                     setPopularMovies(data.results);
                 } else {
@@ -55,8 +59,6 @@ export default function PopularMoviePage() {
                 setLoading(false);
             });
     }, [page, filter.sort]);
-
-    useEffect(() => {}, []);
 
     const data = useMemo(() => popularMovies, [popularMovies]);
 
@@ -84,8 +86,7 @@ export default function PopularMoviePage() {
                     <div
                         className={[
                             page === 5 ? "mb-8" : "",
-                            "grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4  xl:grid-cols-5",
-                            // "grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3  xl:grid-cols-4",
+                            "grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3  xl:grid-cols-4",
                         ].join(" ")}
                     >
                         {data.map((data) => {
@@ -102,15 +103,9 @@ export default function PopularMoviePage() {
                             );
                         })}
                     </div>
-                    {page !== 5 && (
-                        <div className="my-8 md:w-1/2 md:mx-auto">
-                            <BtnPrimary
-                                value={btnValue}
-                                onClick={handleLoadMore}
-                                disabled={disabledBtn}
-                            />
-                        </div>
-                    )}
+                    <div className="my-8 flex items-center justify-center lg:justify-start">
+                        <Pagination />
+                    </div>
                 </>
             )}
         </section>

@@ -1,4 +1,3 @@
-import BtnPrimary from "components/Button/Primary";
 import MovieCard from "components/MovieCard";
 import MovieCardSkeleton from "components/MovieCardSkeleton";
 import Pagination from "components/Pagination";
@@ -11,27 +10,12 @@ import React, { useEffect, useMemo, useState } from "react";
 export default function PopularMoviePage() {
     const [popularMovies, setPopularMovies] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [page, setPage] = useState(1);
-    const [btnValue, setBtnValue] = useState("Muat lebih banyak");
-    const [disabledBtn, setDisabledBtn] = useState(false);
     const filter = useFilter();
     const pagination = usePagination();
 
-    const handleLoadMore = () => {
-        setTimeout(() => {
-            setBtnValue("Muat lebih banyak");
-            setDisabledBtn(false);
-        }, 500);
-        setBtnValue("Tunggu sebentar...");
-        setDisabledBtn(true);
-        setPage(page + 1);
-    };
-
-    console.log(pagination.page);
-
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&sort_by=${filter.sort}&include_adult=false&include_video=false&page=${page}&with_watch_monetization_types=flatrate`,
+            `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&sort_by=${filter.sort}&include_adult=false&include_video=false&page=${pagination.page}&with_watch_monetization_types=flatrate`,
             // `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=${page}`,
             {
                 mode: "cors",
@@ -45,11 +29,7 @@ export default function PopularMoviePage() {
                 return response.json();
             })
             .then((data) => {
-                if (popularMovies === null) {
-                    setPopularMovies(data.results);
-                } else {
-                    setPopularMovies([...popularMovies, ...data.results]);
-                }
+                setPopularMovies(data.results);
             })
             .catch((error) => {
                 setPopularMovies(null);
@@ -58,7 +38,7 @@ export default function PopularMoviePage() {
             .finally(() => {
                 setLoading(false);
             });
-    }, [page, filter.sort]);
+    }, [pagination.page, filter.sort]);
 
     const data = useMemo(() => popularMovies, [popularMovies]);
 
@@ -83,12 +63,7 @@ export default function PopularMoviePage() {
                             *hanya menampilkan 100 teratas
                         </i>
                     </div>
-                    <div
-                        className={[
-                            page === 5 ? "mb-8" : "",
-                            "grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3  xl:grid-cols-4",
-                        ].join(" ")}
-                    >
+                    <div className="mb-8 grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3  xl:grid-cols-4">
                         {data.map((data) => {
                             return (
                                 <MovieCard

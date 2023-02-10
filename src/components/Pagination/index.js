@@ -1,25 +1,42 @@
 import { usePagination } from "helpers/context/pagination";
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function Pagination() {
     const pagination = usePagination();
 
     const handleNext = async () => await pagination.nextPage(pagination.page);
     const handlePrev = async () => await pagination.prevPage(pagination.page);
+    const handleCurrentPage = async (page) =>
+        await pagination.currentPage(page);
 
-    const btnClass =
+    const defaultBtn =
         "px-3 py-2 leading-tight text-white bg-lightblack border border-divider  hover:text-primary hover:border-primary transition-all delay-100 duration-100 ease-in-out";
 
-    const activeBtnClass =
+    const disabledBtn =
+        "px-3 py-2 leading-tight text-divider bg-darkblack border border-divider";
+
+    const activeBtn =
         "z-10 mx-1 px-3 py-2 leading-tight text-primary border-2 border-primary bg-lightblack";
+
+    useEffect(() => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+        });
+    }, [pagination.page]);
 
     return (
         <nav aria-label="Page navigation example">
             <ul className="flex items-center gap-x-1.5 ">
                 <li>
                     <button
-                        className={`block ml-0 ${btnClass}`}
+                        className={[
+                            pagination.page === 1 ? disabledBtn : defaultBtn,
+                            "block ml-0",
+                        ].join(" ")}
                         onClick={handlePrev}
+                        disabled={pagination.page === 1 ? true : false}
                     >
                         <span className="sr-only">Previous</span>
                         <svg
@@ -38,26 +55,63 @@ export default function Pagination() {
                     </button>
                 </li>
                 <li>
-                    <button className={btnClass}>1</button>
+                    <button
+                        className={
+                            pagination.page === 1 ? activeBtn : defaultBtn
+                        }
+                        onClick={() => handleCurrentPage(1)}
+                    >
+                        1
+                    </button>
                 </li>
                 <li>
-                    <button className={btnClass}>2</button>
+                    <button
+                        className={
+                            pagination.page === 2 ? activeBtn : defaultBtn
+                        }
+                        onClick={() => handleCurrentPage(2)}
+                    >
+                        2
+                    </button>
                 </li>
                 <li>
-                    <button aria-current="page" className={activeBtnClass}>
+                    <button
+                        className={
+                            pagination.page === 3 ? activeBtn : defaultBtn
+                        }
+                        onClick={() => handleCurrentPage(3)}
+                    >
                         3
                     </button>
                 </li>
                 <li>
-                    <button className={btnClass}>4</button>
-                </li>
-                <li>
-                    <button className={btnClass}>5</button>
+                    <button
+                        className={
+                            pagination.page === 4 ? activeBtn : defaultBtn
+                        }
+                        onClick={() => handleCurrentPage(4)}
+                    >
+                        4
+                    </button>
                 </li>
                 <li>
                     <button
-                        className={`block ${btnClass}`}
+                        className={
+                            pagination.page === 5 ? activeBtn : defaultBtn
+                        }
+                        onClick={() => handleCurrentPage(5)}
+                    >
+                        5
+                    </button>
+                </li>
+                <li>
+                    <button
+                        className={[
+                            pagination.page === 5 ? disabledBtn : defaultBtn,
+                            "block ",
+                        ].join(" ")}
                         onClick={handleNext}
+                        disabled={pagination.page === 5 ? true : false}
                     >
                         <span className="sr-only">Next</span>
                         <svg

@@ -8,6 +8,12 @@ export const useFilter = () => useContext(FilterContext);
 const sortTypeValue = {
     popularityDesc: "popularity.desc",
     popularityAsc: "popularity.asc",
+    revenueDesc: "revenue.desc",
+    revenueAsc: "revenue.asc",
+    originalTitleDesc: "original_title.desc",
+    originalTitleAsc: "original_title.asc",
+    voteAverageDesc: "vote_average.desc",
+    voteAverageAsc: "vote_average.asc",
 };
 
 const filterAction = {

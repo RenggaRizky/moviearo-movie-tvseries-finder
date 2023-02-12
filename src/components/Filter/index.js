@@ -63,7 +63,7 @@ export default function Filter() {
                         />
 
                         <hr className="border-divider my-8" />
-                        <ScoreRange
+                        {/* <ScoreRange
                             min={0}
                             max={maxScoreRange}
                             defaultValue={minScoreRange}
@@ -83,7 +83,7 @@ export default function Filter() {
                         <hr className="border-divider my-8" />
                         <GenreCheckbox />
 
-                        <hr className="border-divider my-8" />
+                        <hr className="border-divider my-8" /> */}
                         <BtnPrimary
                             value="Terapkan"
                             onClick={() => handleChangeSortType()}
@@ -117,8 +117,12 @@ function SortDropdown({ sortDropdownRef, filter }) {
                 <option value={filter.popularityAsc}>
                     Popularitas terendah
                 </option>
-                <option value="FR">France</option>
-                <option value="DE">Germany</option>
+                <option value={filter.revenueDesc}>Pendapatan terbanyak</option>
+                <option value={filter.revenueAsc}>Pendapatan terkecil</option>
+                <option value={filter.originalTitleAsc}>Judul (A-Z)</option>
+                <option value={filter.originalTitleDesc}>Judul (Z-A)</option>
+                <option value={filter.voteAverageDesc}>Nilai tertinggi</option>
+                <option value={filter.voteAverageAsc}>Nilai terendah</option>
             </select>
         </div>
     );

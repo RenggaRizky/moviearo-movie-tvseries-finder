@@ -1,30 +1,22 @@
-import BtnPrimary from "components/Button/Primary";
 import MovieCard from "components/MovieCard";
 import TitleSection from "components/TitleSection";
 import MovieCardSkeleton from "components/MovieCardSkeleton";
 import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
 import React, { useEffect, useMemo, useState } from "react";
+import Pagination from "components/Pagination";
+import { useFilter } from "helpers/context/filter";
+import { usePagination } from "helpers/context/pagination";
 
 export default function NowPlayingMoviePage() {
     const [nowPlayingMovies, setNowPlayingMovies] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [page, setPage] = useState(1);
-    const [btnValue, setBtnValue] = useState("Muat lebih banyak");
-    const [disabledBtn, setDisabledBtn] = useState(false);
-
-    const handleLoadMore = () => {
-        setTimeout(() => {
-            setBtnValue("Muat lebih banyak");
-            setDisabledBtn(false);
-        }, 500);
-        setBtnValue("Tunggu sebentar...");
-        setDisabledBtn(true);
-        setPage(page + 1);
-    };
+    const filter = useFilter();
+    const pagination = usePagination();
 
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=${page}`,
+            // `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=${page}`,
+            `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&sort_by=${filter.sort}&include_adult=false&include_video=false&page=${pagination.page}&release_date.gte=2023-01-01&release_date.lte=2023-03-01&with_watch_monetization_types=flatrate`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
@@ -37,11 +29,7 @@ export default function NowPlayingMoviePage() {
                 return response.json();
             })
             .then((data) => {
-                if (nowPlayingMovies === null) {
-                    setNowPlayingMovies(data.results);
-                } else {
-                    setNowPlayingMovies([...nowPlayingMovies, ...data.results]);
-                }
+                setNowPlayingMovies(data.results);
             })
             .catch((error) => {
                 setNowPlayingMovies(null);
@@ -50,7 +38,7 @@ export default function NowPlayingMoviePage() {
             .finally(() => {
                 setLoading(false);
             });
-    }, [page]);
+    }, [pagination.page, filter.sort]);
 
     const data = useMemo(() => nowPlayingMovies, [nowPlayingMovies]);
 
@@ -76,12 +64,7 @@ export default function NowPlayingMoviePage() {
                 </>
             ) : (
                 <>
-                    <div
-                        className={[
-                            page === 5 ? "mb-8" : "",
-                            "grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3  xl:grid-cols-4",
-                        ].join(" ")}
-                    >
+                    <div className="mb-8 grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3  xl:grid-cols-4">
                         {data.map((data) => {
                             return (
                                 <MovieCard
@@ -96,15 +79,9 @@ export default function NowPlayingMoviePage() {
                             );
                         })}
                     </div>
-                    {page !== 5 && (
-                        <div className="my-8 md:w-1/2 md:mx-auto">
-                            <BtnPrimary
-                                value={btnValue}
-                                onClick={handleLoadMore}
-                                disabled={disabledBtn}
-                            />
-                        </div>
-                    )}
+                    <div className="my-8 flex items-center justify-center lg:justify-start">
+                        <Pagination />
+                    </div>
                 </>
             )}
         </section>

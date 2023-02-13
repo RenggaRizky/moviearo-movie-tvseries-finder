@@ -1,30 +1,23 @@
-import BtnPrimary from "components/Button/Primary";
 import MovieCard from "components/MovieCard";
 import MovieCardSkeleton from "components/MovieCardSkeleton";
+import Pagination from "components/Pagination";
 import TitleSection from "components/TitleSection";
 import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
+import { useFilter } from "helpers/context/filter";
+import { usePagination } from "helpers/context/pagination";
 import React, { useEffect, useMemo, useState } from "react";
 
 export default function TopRatedMoviePage() {
     const [topRatedMovies, setTopRatedMovies] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [page, setPage] = useState(1);
-    const [btnValue, setBtnValue] = useState("Muat lebih banyak");
-    const [disabledBtn, setDisabledBtn] = useState(false);
-
-    const handleLoadMore = () => {
-        setTimeout(() => {
-            setBtnValue("Muat lebih banyak");
-            setDisabledBtn(false);
-        }, 500);
-        setBtnValue("Tunggu sebentar...");
-        setDisabledBtn(true);
-        setPage(page + 1);
-    };
+    const filter = useFilter();
+    const pagination = usePagination();
 
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=${page}`,
+            filter.sort === "default"
+                ? `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=${pagination.page}`
+                : `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&sort_by=${filter.sort}&include_adult=false&include_video=false&page=${pagination.page}`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
@@ -37,11 +30,7 @@ export default function TopRatedMoviePage() {
                 return response.json();
             })
             .then((data) => {
-                if (topRatedMovies === null) {
-                    setTopRatedMovies(data.results);
-                } else {
-                    setTopRatedMovies([...topRatedMovies, ...data.results]);
-                }
+                setTopRatedMovies(data.results);
             })
             .catch((error) => {
                 setTopRatedMovies(null);
@@ -50,7 +39,7 @@ export default function TopRatedMoviePage() {
             .finally(() => {
                 setLoading(false);
             });
-    }, [page]);
+    }, [pagination.page, filter.sort]);
 
     const data = useMemo(() => topRatedMovies, [topRatedMovies]);
 
@@ -76,12 +65,7 @@ export default function TopRatedMoviePage() {
                 </>
             ) : (
                 <>
-                    <div
-                        className={[
-                            page === 5 ? "mb-8" : "",
-                            "grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3  xl:grid-cols-4",
-                        ].join(" ")}
-                    >
+                    <div className="mb-8 grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3  xl:grid-cols-4">
                         {data.map((data) => {
                             return (
                                 <MovieCard
@@ -97,15 +81,9 @@ export default function TopRatedMoviePage() {
                         })}
                     </div>
 
-                    {page !== 5 && (
-                        <div className="my-8 md:w-1/2 md:mx-auto">
-                            <BtnPrimary
-                                value={btnValue}
-                                onClick={handleLoadMore}
-                                disabled={disabledBtn}
-                            />
-                        </div>
-                    )}
+                    <div className="my-8 flex items-center justify-center lg:justify-start">
+                        <Pagination />
+                    </div>
                 </>
             )}
         </section>

@@ -1,30 +1,23 @@
-import BtnPrimary from "components/Button/Primary";
 import MovieCard from "components/MovieCard";
 import MovieCardSkeleton from "components/MovieCardSkeleton";
+import Pagination from "components/Pagination";
 import TitleSection from "components/TitleSection";
 import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
+import { useFilter } from "helpers/context/filter";
+import { usePagination } from "helpers/context/pagination";
 import React, { useEffect, useMemo, useState } from "react";
 
 export default function PopularTvSeriesPage() {
     const [popularTvSeries, setPopularTvSeries] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [page, setPage] = useState(1);
-    const [btnValue, setBtnValue] = useState("Muat lebih banyak");
-    const [disabledBtn, setDisabledBtn] = useState(false);
-
-    const handleLoadMore = () => {
-        setTimeout(() => {
-            setBtnValue("Muat lebih banyak");
-            setDisabledBtn(false);
-        }, 500);
-        setBtnValue("Tunggu sebentar...");
-        setDisabledBtn(true);
-        setPage(page + 1);
-    };
+    const filter = useFilter();
+    const pagination = usePagination();
 
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=${page}`,
+            filter.sort === "default"
+                ? `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=${pagination.page}`
+                : `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&sort_by=${filter.sort}&page=${pagination.page}&include_null_first_air_dates=false&with_watch_monetization_types=flatrate&with_status=0&with_type=0`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },
@@ -37,11 +30,7 @@ export default function PopularTvSeriesPage() {
                 return response.json();
             })
             .then((data) => {
-                if (popularTvSeries === null) {
-                    setPopularTvSeries(data.results);
-                } else {
-                    setPopularTvSeries([...popularTvSeries, ...data.results]);
-                }
+                setPopularTvSeries(data.results);
             })
             .catch((error) => {
                 setPopularTvSeries(null);
@@ -50,7 +39,7 @@ export default function PopularTvSeriesPage() {
             .finally(() => {
                 setLoading(false);
             });
-    }, [page]);
+    }, [pagination.page, filter.sort]);
 
     const data = useMemo(() => popularTvSeries, [popularTvSeries]);
 
@@ -78,12 +67,7 @@ export default function PopularTvSeriesPage() {
                             *hanya menampilkan 100 teratas
                         </i>
                     </div>
-                    <div
-                        className={[
-                            page === 5 ? "mb-8" : "",
-                            "grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3  xl:grid-cols-4",
-                        ].join(" ")}
-                    >
+                    <div className="mb-8 grid grid-cols-2 justify-between sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3  xl:grid-cols-4">
                         {data.map((data) => {
                             return (
                                 <MovieCard
@@ -98,15 +82,9 @@ export default function PopularTvSeriesPage() {
                             );
                         })}
                     </div>
-                    {page !== 5 && (
-                        <div className="my-8 md:w-1/2 md:mx-auto">
-                            <BtnPrimary
-                                value={btnValue}
-                                onClick={handleLoadMore}
-                                disabled={disabledBtn}
-                            />
-                        </div>
-                    )}
+                    <div className="my-8 flex items-center justify-center lg:justify-start">
+                        <Pagination />
+                    </div>
                 </>
             )}
         </section>

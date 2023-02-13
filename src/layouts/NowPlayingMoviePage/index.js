@@ -6,6 +6,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import Pagination from "components/Pagination";
 import { useFilter } from "helpers/context/filter";
 import { usePagination } from "helpers/context/pagination";
+import useDate from "helpers/useDate";
 
 export default function NowPlayingMoviePage() {
     const [nowPlayingMovies, setNowPlayingMovies] = useState(null);
@@ -13,10 +14,14 @@ export default function NowPlayingMoviePage() {
     const filter = useFilter();
     const pagination = usePagination();
 
+    const date = useDate();
+    const { nextMonth, prevMonth } = date;
+
     useEffect(() => {
         fetch(
-            // `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=${page}`,
-            `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&sort_by=${filter.sort}&include_adult=false&include_video=false&page=${pagination.page}&release_date.gte=2023-01-01&release_date.lte=2023-03-01&with_watch_monetization_types=flatrate`,
+            filter.sort === "default"
+                ? `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=${pagination.page}`
+                : `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&sort_by=${filter.sort}&include_adult=false&include_video=false&page=${pagination.page}&release_date.gte=${prevMonth}&release_date.lte=${nextMonth}&with_watch_monetization_types=flatrate`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },

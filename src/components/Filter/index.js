@@ -3,9 +3,12 @@ import CheckboxItem from "components/CheckboxItem";
 import ScoreRange from "components/ScoreRange";
 import { useFilter } from "helpers/context/filter";
 import React, { useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 export default function Filter() {
     const filter = useFilter();
+    const location = useLocation();
+    const pathname = location.pathname.split("/")[1];
 
     const [toggle, setToggle] = useState(true);
     const [maxScoreRange, setMaxScoreRange] = useState(100);
@@ -60,6 +63,7 @@ export default function Filter() {
                         <SortDropdown
                             sortDropdownRef={sortDropdownRef}
                             filter={filter}
+                            pathname={pathname}
                         />
 
                         <hr className="border-divider my-8" />
@@ -95,7 +99,7 @@ export default function Filter() {
     );
 }
 
-function SortDropdown({ sortDropdownRef, filter }) {
+function SortDropdown({ sortDropdownRef, filter, pathname }) {
     return (
         <div>
             <label
@@ -110,17 +114,39 @@ function SortDropdown({ sortDropdownRef, filter }) {
                 defaultValue={filter.sort}
                 ref={sortDropdownRef}
             >
-                <option selected>Pilih jenis pengurutan</option>
+                <option selected hidden value={filter.default}>
+                    Pilih jenis pengurutan
+                </option>
                 <option value={filter.popularityDesc}>
                     Popularitas tertinggi
                 </option>
                 <option value={filter.popularityAsc}>
                     Popularitas terendah
                 </option>
-                <option value={filter.revenueDesc}>Pendapatan terbanyak</option>
-                <option value={filter.revenueAsc}>Pendapatan terkecil</option>
-                <option value={filter.originalTitleAsc}>Judul (A-Z)</option>
-                <option value={filter.originalTitleDesc}>Judul (Z-A)</option>
+                <option
+                    value={filter.revenueDesc}
+                    hidden={pathname === "serialtv"}
+                >
+                    Pendapatan terbanyak
+                </option>
+                <option
+                    value={filter.revenueAsc}
+                    hidden={pathname === "serialtv"}
+                >
+                    Pendapatan terkecil
+                </option>
+                <option
+                    value={filter.originalTitleAsc}
+                    hidden={pathname === "serialtv"}
+                >
+                    Judul (A-Z)
+                </option>
+                <option
+                    value={filter.originalTitleDesc}
+                    hidden={pathname === "serialtv"}
+                >
+                    Judul (Z-A)
+                </option>
                 <option value={filter.voteAverageDesc}>Nilai tertinggi</option>
                 <option value={filter.voteAverageAsc}>Nilai terendah</option>
             </select>

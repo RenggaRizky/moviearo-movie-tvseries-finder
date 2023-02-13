@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useReducer } from "react";
-import { useLocation } from "react-router-dom";
 
 const FilterContext = createContext();
 
 export const useFilter = () => useContext(FilterContext);
 
 const sortTypeValue = {
+    default: "default",
     popularityDesc: "popularity.desc",
     popularityAsc: "popularity.asc",
     revenueDesc: "revenue.desc",
@@ -33,31 +33,8 @@ const filterReducer = (state, action) => {
 };
 
 export default function FilterProvider({ children }) {
-    const location = useLocation();
-
-    const getPath = () => {
-        switch (location.pathname) {
-            case "/film/populer":
-                return sortTypeValue.popularityDesc;
-            case "/film/sedang-diputar":
-                return sortTypeValue.popularityDesc;
-            case "/film/yang-akan-datang":
-                return sortTypeValue.popularityDesc;
-            case "/film/top-rating":
-                return sortTypeValue.popularityDesc;
-            case "/serialtv/populer":
-                return sortTypeValue.popularityDesc;
-            case "/serialtv/hari-ini":
-                return sortTypeValue.popularityDesc;
-            case "/serialtv/top-rating":
-                return sortTypeValue.popularityDesc;
-            default:
-                break;
-        }
-    };
-
     const initialStateFilter = {
-        sort: getPath(),
+        sort: sortTypeValue.default,
     };
 
     const [state, dispatch] = useReducer(filterReducer, initialStateFilter);

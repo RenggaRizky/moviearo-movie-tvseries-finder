@@ -15,8 +15,9 @@ export default function PopularMoviePage() {
 
     useEffect(() => {
         fetch(
-            `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&sort_by=${filter.sort}&include_adult=false&include_video=false&page=${pagination.page}&with_watch_monetization_types=flatrate`,
-            // `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=${page}`,
+            filter.sort === "default"
+                ? `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&page=${pagination.page}`
+                : `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=id-ID&sort_by=${filter.sort}&include_adult=false&include_video=false&page=${pagination.page}&with_watch_monetization_types=flatrate`,
             {
                 mode: "cors",
                 headers: { "Content-Type": "application/json" },

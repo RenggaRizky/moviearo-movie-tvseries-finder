@@ -215,9 +215,12 @@ export default function MovieDetails() {
                             </i>
                         </>
                     ) : (
-                        <p className="text-lightgray text-base leading-7 mt-6">
-                            -
-                        </p>
+                        <div className="mt-6">
+                            <i className="text-red-500 text-xs leading-7">
+                                *deskripsi pada film/serial tv ini belum
+                                tersedia
+                            </i>
+                        </div>
                     )}
                     <table className="w-full mt-4">
                         <tbody>

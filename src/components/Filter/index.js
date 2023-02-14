@@ -1,6 +1,5 @@
 import BtnPrimary from "components/Button/Primary";
 import CheckboxItem from "components/CheckboxItem";
-import ScoreRange from "components/ScoreRange";
 import { useFilter } from "helpers/context/filter";
 import React, { useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
@@ -11,14 +10,18 @@ export default function Filter() {
     const pathname = location.pathname.split("/")[1];
 
     const [toggle, setToggle] = useState(true);
-    const [maxScoreRange, setMaxScoreRange] = useState(100);
-    const [minScoreRange, setMinScoreRange] = useState(0);
 
     const sortDropdownRef = useRef("");
 
     const handleChangeSortType = async () => {
         const type = await sortDropdownRef.current.value;
         await filter.sortType(type);
+
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+        });
     };
 
     return (

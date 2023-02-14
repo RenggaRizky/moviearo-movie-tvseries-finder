@@ -1,6 +1,5 @@
 import TitleSection from "components/TitleSection";
 import TitleSectionSkeleton from "components/TitleSectionSkeleteon";
-import { runtime } from "helpers/Runtime";
 import React, { useCallback, useEffect, useReducer } from "react";
 import { useLocation } from "react-router-dom";
 import useGetPathId from "helpers/useGetPathId";
@@ -215,9 +214,12 @@ export default function TvDetails() {
                             </i>
                         </>
                     ) : (
-                        <p className="text-lightgray text-base leading-7 mt-6">
-                            -
-                        </p>
+                        <div className="mt-6">
+                            <i className="text-red-500 text-xs leading-7">
+                                *deskripsi pada film/serial tv ini belum
+                                tersedia
+                            </i>
+                        </div>
                     )}
                     <table className="w-full mt-4">
                         <tbody>
